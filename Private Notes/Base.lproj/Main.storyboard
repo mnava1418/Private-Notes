@@ -51,21 +51,6 @@
             </objects>
             <point key="canvasLocation" x="-1296" y="391"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="fMb-wX-yiK">
-            <objects>
-                <viewController id="bQO-Ni-Mpc" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LiB-5F-9ab">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="wNf-dF-3GH"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gyp-zi-Z7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="724" y="457"/>
-        </scene>
         <!--Root View Controller-->
         <scene sceneID="dOZ-UW-iww">
             <objects>
@@ -111,6 +96,21 @@
             </objects>
             <point key="canvasLocation" x="724" y="-296"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="6m7-2e-ogL">
+            <objects>
+                <viewController id="qEE-hA-7Zr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8nm-LN-0dN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Unf-63-Map"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ah-0l-qOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="724" y="412"/>
+        </scene>
         <!--Notes-->
         <scene sceneID="7p9-80-2jk">
             <objects>
@@ -118,7 +118,7 @@
                     <tabBarItem key="tabBarItem" title="Notes" image="notes" id="6RN-Bl-3tw"/>
                     <connections>
                         <segue destination="dCP-fc-IPd" kind="relationship" relationship="masterViewController" id="ggc-SI-U6A"/>
-                        <segue destination="bQO-Ni-Mpc" kind="relationship" relationship="detailViewController" id="hbQ-Eo-Gwg"/>
+                        <segue destination="qEE-hA-7Zr" kind="relationship" relationship="detailViewController" id="5tp-AD-4RW"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIj-4L-nb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
