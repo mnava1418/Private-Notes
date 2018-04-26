@@ -31,6 +31,7 @@ class FoldersTableViewController: UITableViewController {
         
         if indexPath.row == 0 {
             cell.label.textColor = UIColor(named: "Blue")
+            cell.notesCount.textColor = UIColor(named: "Blue")
             cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
             
         } else{
@@ -39,6 +40,8 @@ class FoldersTableViewController: UITableViewController {
         }
         
         cell.icon.tintColor = UIColor(named: "Blue")
+        cell.forward.image = UIImage(named: "forward60")?.withRenderingMode(.alwaysTemplate)
+        cell.forward.tintColor = UIColor(named: "Blue")
         return cell
     }
     
@@ -46,19 +49,24 @@ class FoldersTableViewController: UITableViewController {
         let selectedCell = tableView.cellForRow(at: indexPath) as! FolderViewCell
         selectedCell.contentView.backgroundColor = UIColor(named: "Blue")
         selectedCell.label.textColor = UIColor(named: "White")
+        selectedCell.notesCount.textColor = UIColor(named: "White")
         selectedCell.icon.tintColor = UIColor(named: "White")
+        selectedCell.forward.tintColor = UIColor(named: "White")
     }
 
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deSelectedCell = tableView.cellForRow(at: indexPath) as! FolderViewCell
-        deSelectedCell.label.textColor = UIColor(named: "Black")
         deSelectedCell.icon.tintColor = UIColor(named: "Blue")
+        deSelectedCell.forward.tintColor = UIColor(named: "Blue")
         
         if indexPath.row == 0 {
             deSelectedCell.label.textColor = UIColor(named: "Blue")
+            deSelectedCell.notesCount.textColor = UIColor(named: "Blue")
             
         } else{
             deSelectedCell.label.textColor = UIColor(named: "Black")
+            deSelectedCell.notesCount.textColor = UIColor(named: "Black")
+            
         }
     }
     

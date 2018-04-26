@@ -12,6 +12,8 @@ class FolderViewCell: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var notesCount: UILabel!
+    @IBOutlet weak var forward: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
