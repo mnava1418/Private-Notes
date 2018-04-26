@@ -10,31 +10,42 @@ import UIKit
 
 class FoldersTableViewController: UITableViewController {
 
-    let data:[String] = ["All Notes","Folder 1","Folder 2","Folder 3",]
+    let notesManager = NotesManager()
+    var folders:[String] = []
+    var notesByFolder:[String: [String]] = [:]
+    var allNotes:[String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        folders = notesManager.getFolders()
+        notesByFolder = notesManager.getNotesByFolder()
+        allNotes = notesManager.getAllNotes()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return folders.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "folderCell", for: indexPath) as! FolderViewCell
-        cell.label.text = data[indexPath.row]
+        cell.label.text = folders[indexPath.row]
         
         if indexPath.row == 0 {
-            cell.label.textColor = UIColor(named: "Blue")
+            cell.notesCount.text = String(allNotes.count)
             cell.notesCount.textColor = UIColor(named: "Blue")
+            cell.label.textColor = UIColor(named: "Blue")
             cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
             
         } else{
+            let folder = folders[indexPath.row]
+            var currentNotesCount = 0
+            
+            if let currentNotes = notesByFolder[folder] {
+                currentNotesCount = currentNotes.count
+            }
+            
+            cell.notesCount.text = String(currentNotesCount)
             cell.label.font = UIFont.boldSystemFont(ofSize: 15.0)
             cell.icon.image = UIImage(named: "folder60")?.withRenderingMode(.alwaysTemplate)
         }
