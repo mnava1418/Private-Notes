@@ -10,7 +10,7 @@ import UIKit
 
 class FoldersTableViewController: UITableViewController {
 
-    let data:[String] = ["Folder 1","Folder 2","Folder 3",]
+    let data:[String] = ["All Notes","Folder 1","Folder 2","Folder 3",]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,7 +28,16 @@ class FoldersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "folderCell", for: indexPath) as! FolderViewCell
         cell.label.text = data[indexPath.row]
-        cell.icon.image = UIImage(named: "folder60")?.withRenderingMode(.alwaysTemplate)
+        
+        if indexPath.row == 0 {
+            cell.label.textColor = UIColor(named: "Blue")
+            cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
+            
+        } else{
+            cell.label.font = UIFont.boldSystemFont(ofSize: 15.0)
+            cell.icon.image = UIImage(named: "folder60")?.withRenderingMode(.alwaysTemplate)
+        }
+        
         cell.icon.tintColor = UIColor(named: "Blue")
         return cell
     }
@@ -44,6 +53,13 @@ class FoldersTableViewController: UITableViewController {
         let deSelectedCell = tableView.cellForRow(at: indexPath) as! FolderViewCell
         deSelectedCell.label.textColor = UIColor(named: "Black")
         deSelectedCell.icon.tintColor = UIColor(named: "Blue")
+        
+        if indexPath.row == 0 {
+            deSelectedCell.label.textColor = UIColor(named: "Blue")
+            
+        } else{
+            deSelectedCell.label.textColor = UIColor(named: "Black")
+        }
     }
     
     override func didReceiveMemoryWarning() {

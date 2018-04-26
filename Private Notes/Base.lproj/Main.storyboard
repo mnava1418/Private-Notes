@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -69,19 +70,29 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="folder60" translatesAutoresizingMaskIntoConstraints="NO" id="AaB-1X-lLZ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder60" translatesAutoresizingMaskIntoConstraints="NO" id="AaB-1X-lLZ">
                                             <rect key="frame" x="20" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="UFb-8d-hvP"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-2Q-KEr">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPg-2Q-KEr">
                                             <rect key="frame" x="53" y="11" width="341" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="jPg-2Q-KEr" firstAttribute="centerY" secondItem="AaB-1X-lLZ" secondAttribute="centerY" id="8ey-oa-1cU"/>
+                                        <constraint firstItem="AaB-1X-lLZ" firstAttribute="bottom" secondItem="Jul-Qs-2fH" secondAttribute="bottomMargin" id="DzD-ih-189"/>
+                                        <constraint firstItem="jPg-2Q-KEr" firstAttribute="top" secondItem="Jul-Qs-2fH" secondAttribute="topMargin" id="FBA-iB-h5k"/>
+                                        <constraint firstItem="AaB-1X-lLZ" firstAttribute="leading" secondItem="Jul-Qs-2fH" secondAttribute="leadingMargin" id="XGJ-G1-XBJ"/>
+                                        <constraint firstItem="AaB-1X-lLZ" firstAttribute="centerY" secondItem="Jul-Qs-2fH" secondAttribute="centerY" id="dEz-hO-dZ8"/>
+                                        <constraint firstItem="jPg-2Q-KEr" firstAttribute="trailing" secondItem="Jul-Qs-2fH" secondAttribute="trailingMargin" id="ee8-Yn-jMh"/>
+                                        <constraint firstItem="jPg-2Q-KEr" firstAttribute="leading" secondItem="AaB-1X-lLZ" secondAttribute="trailing" constant="8" symbolic="YES" id="kmn-VC-1OX"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
