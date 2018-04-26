@@ -48,4 +48,16 @@ class NotesManager {
         
         return allNotes
     }
+    
+    func getFolderIndex(folders: [String], folderName:String)-> Int {
+        if let folderIndex = folders.index(of: folderName) {
+            return folderIndex
+        } else {
+            return folders.count - 1
+        }
+    }
+    
+    func addFolder(name: String) {
+        notesByFolder[name] = []
+    }
 }

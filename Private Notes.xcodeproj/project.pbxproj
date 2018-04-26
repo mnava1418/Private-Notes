@@ -15,6 +15,7 @@
 		5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015359D2090F750008C2DA0 /* FolderViewCell.swift */; };
 		501535A0209149D6008C2DA0 /* MyColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5015359F209149D6008C2DA0 /* MyColors.xcassets */; };
 		501535A32091606A008C2DA0 /* NotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501535A22091606A008C2DA0 /* NotesManager.swift */; };
+		502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5015359D2090F750008C2DA0 /* FolderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewCell.swift; sourceTree = "<group>"; };
 		5015359F209149D6008C2DA0 /* MyColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MyColors.xcassets; sourceTree = "<group>"; };
 		501535A22091606A008C2DA0 /* NotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesManager.swift; sourceTree = "<group>"; };
+		502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */,
 				5015359D2090F750008C2DA0 /* FolderViewCell.swift */,
+				502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
 				501535A32091606A008C2DA0 /* NotesManager.swift in Sources */,
 				5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */,
+				502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */,
 				50153587208F7E0C008C2DA0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,9 +18,10 @@ class FoldersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        folders = notesManager.getFolders()
-        notesByFolder = notesManager.getNotesByFolder()
-        allNotes = notesManager.getAllNotes()
+        self.getNotesInfo()
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(getNewFolderName))
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,6 +86,72 @@ class FoldersTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //CUSTOMIZE METHODS
+    func addFolder(tempName: String) {
+        var name = tempName
+        if name != ""{
+            var finalName = name
+            var count = 0
+            var existingFolder = true
+            
+            while(existingFolder) {
+                if let indexFolder = folders.index(of: finalName){
+                    if indexFolder >= 0 {
+                        count = count + 1
+                        finalName = name + " \(count)"
+                    } else {
+                        existingFolder = false
+                    }
+                } else{
+                    existingFolder = false
+                }
+            }
+            
+            name = finalName
+            notesManager.addFolder(name: name)
+            getNotesInfo()
+            
+            let indexFolder = notesManager.getFolderIndex(folders: folders, folderName: name)
+            let indexPath = IndexPath(row: indexFolder, section: 0)
+            tableView.insertRows(at: [indexPath], with: .middle)
+        }
+    }
+    
+    @objc func getNewFolderName() {
+        let newFolderScreen = UIAlertController(title: "New Folder", message: "Enter the folder name", preferredStyle: .alert)
+        
+        newFolderScreen.addTextField { (name: UITextField) in
+            name.placeholder = "Folder Name"
+        }
+        
+        let saveAction:UIAlertAction = UIAlertAction(title: "Create", style: .default) { (action: UIAlertAction) in
+            if let name = newFolderScreen.textFields![0].text{
+                OperationQueue.main.addOperation {
+                    self.addFolder(tempName: name)
+                }
+            }
+        }
+        
+        let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        newFolderScreen.addAction(saveAction)
+        newFolderScreen.addAction(cancelAction)
+        
+        self.present(newFolderScreen, animated: true)
+    }
+    
+    func getNotesInfo() {
+        folders = notesManager.getFolders()
+        notesByFolder = notesManager.getNotesByFolder()
+        allNotes = notesManager.getAllNotes()
+    }
+    /*@objc
+     func insertNewObject(_ sender: Any) {
+     objects.insert(NSDate(), at: 0)
+     let indexPath = IndexPath(row: 0, section: 0)
+     tableView.insertRows(at: [indexPath], with: .automatic)
+     }*/
 
     // MARK: - Table view data source
 
