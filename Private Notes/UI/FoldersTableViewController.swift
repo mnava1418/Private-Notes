@@ -111,52 +111,30 @@ class FoldersTableViewController: UITableViewController {
         }
     }
     
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            confirmDeleteFolder(folderName: folders[indexPath.row], indexPath: indexPath)
-        } else {
-            return
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.confirmDeleteFolder(folderName: self.folders[indexPath.row], indexPath: indexPath)
         }
+        
+        let updateAction = UITableViewRowAction(style: .normal, title: "Update") { (action, indexPath) in
+            self.getUpdatedFolderName(oldName: self.folders[indexPath.row] )
+        }
+        updateAction.backgroundColor = UIColor(named: "Blue")
+    
+        return [deleteAction, updateAction]
     }
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-   
     
     //MARK: Customize Methods
     
-    func addFolder(tempName: String) {
-        var name = tempName
+    func addFolder(name: String) {
         if name != ""{
-            var finalName = name
-            var count = 0
-            var existingFolder = true
-            
-            while(existingFolder) {
-                if let indexFolder = folders.index(of: finalName){
-                    if indexFolder >= 0 {
-                        count = count + 1
-                        finalName = name + " \(count)"
-                    } else {
-                        existingFolder = false
-                    }
-                } else{
-                    existingFolder = false
+            if let indexFolder = folders.index(of: name){
+                if indexFolder >= 0 {
+                    return
                 }
             }
             
-            name = finalName
             notesManager.addFolder(name: name)
             getNotesInfo()
             
@@ -166,21 +144,35 @@ class FoldersTableViewController: UITableViewController {
         }
     }
     
+    func updateFolder(oldName:String, newName:String) {
+        if newName != ""{
+            if let indexFolder = folders.index(of: newName){
+                if indexFolder >= 0 {
+                    return
+                }
+            }
+            
+            notesManager.updateFolder(oldName: oldName, newName: newName)
+            getNotesInfo()
+            tableView.reloadData()
+        }
+    }
+    
     @objc func getNewFolderName() {
         if tableView.isEditing {
             return
         }
         
-        let newFolderScreen = UIAlertController(title: "New Folder", message: "Enter the folder name", preferredStyle: .alert)
+        let newFolderScreen = UIAlertController(title: "New Folder", message: "Enter folder name", preferredStyle: .alert)
         
         newFolderScreen.addTextField { (name: UITextField) in
             name.placeholder = "Folder Name"
         }
         
-        let saveAction:UIAlertAction = UIAlertAction(title: "Create", style: .default) { (action: UIAlertAction) in
+        let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
             if let name = newFolderScreen.textFields![0].text{
                 OperationQueue.main.addOperation {
-                    self.addFolder(tempName: name)
+                    self.addFolder(name: name)
                 }
             }
         }
@@ -191,6 +183,29 @@ class FoldersTableViewController: UITableViewController {
         newFolderScreen.addAction(cancelAction)
         
         self.present(newFolderScreen, animated: true)
+    }
+    
+    func getUpdatedFolderName(oldName: String) {
+        let updateFolderScreen = UIAlertController(title: "Update Folder", message: "Enter folder name", preferredStyle: .alert)
+        
+        updateFolderScreen.addTextField { (newName: UITextField) in
+            newName.placeholder = "Folder Name"
+        }
+        
+        let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
+            if let newName = updateFolderScreen.textFields![0].text{
+                OperationQueue.main.addOperation {
+                    self.updateFolder(oldName: oldName, newName: newName)
+                }
+            }
+        }
+        
+        let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        updateFolderScreen.addAction(saveAction)
+        updateFolderScreen.addAction(cancelAction)
+        
+        self.present(updateFolderScreen, animated: true)
     }
     
     func deleteFolder(folderName: String, indexPath: IndexPath)

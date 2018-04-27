@@ -64,4 +64,13 @@ class NotesManager {
     func removeFolder(name: String) {
         notesByFolder.removeValue(forKey: name)
     }
+    
+    func updateFolder(oldName: String, newName:String) {
+        if let tempNotes = notesByFolder[oldName] {
+            removeFolder(name: oldName)
+            notesByFolder[newName] = tempNotes
+        } else {
+            addFolder(name: newName)
+        }
+    }
 }
