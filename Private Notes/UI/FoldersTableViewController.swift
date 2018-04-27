@@ -22,7 +22,15 @@ class FoldersTableViewController: UITableViewController {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(getNewFolderName))
         self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.leftBarButtonItem = editButtonItem
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return folders.count
@@ -78,16 +86,56 @@ class FoldersTableViewController: UITableViewController {
         } else{
             deSelectedCell.label.textColor = UIColor(named: "Black")
             deSelectedCell.notesCount.textColor = UIColor(named: "Black")
-            
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if let cell = tableView.cellForRow(at: indexPath) as? FolderViewCell {
+            cell.icon.tintColor = UIColor(named: "Blue")
+            cell.forward.tintColor = UIColor(named: "Blue")
+            
+            if indexPath.row == 0 {
+                cell.label.textColor = UIColor(named: "Blue")
+                cell.notesCount.textColor = UIColor(named: "Blue")
+                
+            } else{
+                cell.label.textColor = UIColor(named: "Black")
+                cell.notesCount.textColor = UIColor(named: "Black")
+            }
+        }
+        
+        if indexPath.row == 0 {
+            return false
+        } else {
+            return true
+        }
     }
     
-    //CUSTOMIZE METHODS
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            confirmDeleteFolder(folderName: folders[indexPath.row], indexPath: indexPath)
+        } else {
+            return
+        }
+    }
+    
+    /*
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
+   
+    
+    //MARK: Customize Methods
+    
     func addFolder(tempName: String) {
         var name = tempName
         if name != ""{
@@ -119,6 +167,10 @@ class FoldersTableViewController: UITableViewController {
     }
     
     @objc func getNewFolderName() {
+        if tableView.isEditing {
+            return
+        }
+        
         let newFolderScreen = UIAlertController(title: "New Folder", message: "Enter the folder name", preferredStyle: .alert)
         
         newFolderScreen.addTextField { (name: UITextField) in
@@ -141,60 +193,46 @@ class FoldersTableViewController: UITableViewController {
         self.present(newFolderScreen, animated: true)
     }
     
+    func deleteFolder(folderName: String, indexPath: IndexPath)
+    {
+        notesManager.removeFolder(name: folderName)
+        getNotesInfo()
+        
+        let headerIndexPath = IndexPath(row: 0, section: 0)
+        let headerCell = tableView.cellForRow(at: headerIndexPath) as! FolderViewCell
+        headerCell.notesCount.text = String(allNotes.count)
+        
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
+        let notes = Array(notesByFolder[folderName]!)
+        
+        if notes.count > 0 {
+            let confirmScreen = UIAlertController(title: "Are you sure?", message: "All notes in \(folderName) will be deleted", preferredStyle: .actionSheet)
+            let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
+                OperationQueue.main.addOperation {
+                    self.deleteFolder(folderName: folderName, indexPath: indexPath)
+                }
+            }
+            let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            confirmScreen.addAction(deleteAction)
+            confirmScreen.addAction(cancelAction)
+            
+            self.present(confirmScreen, animated: true)
+            
+        } else {
+            self.deleteFolder(folderName: folderName, indexPath: indexPath)
+        }
+    }
+    
     func getNotesInfo() {
         folders = notesManager.getFolders()
         notesByFolder = notesManager.getNotesByFolder()
         allNotes = notesManager.getAllNotes()
     }
-    /*@objc
-     func insertNewObject(_ sender: Any) {
-     objects.insert(NSDate(), at: 0)
-     let indexPath = IndexPath(row: 0, section: 0)
-     tableView.insertRows(at: [indexPath], with: .automatic)
-     }*/
-
-    // MARK: - Table view data source
-
-    /*override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }*/
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     /*
     // MARK: - Navigation
 

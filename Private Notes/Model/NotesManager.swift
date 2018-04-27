@@ -60,4 +60,8 @@ class NotesManager {
     func addFolder(name: String) {
         notesByFolder[name] = []
     }
+    
+    func removeFolder(name: String) {
+        notesByFolder.removeValue(forKey: name)
+    }
 }
