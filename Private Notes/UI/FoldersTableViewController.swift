@@ -245,7 +245,6 @@ class FoldersTableViewController: UITableViewController {
                 confirmScreen.addAction(cancelAction)
                 
                 self.present(confirmScreen, animated: true)
-                
             } else {
                 self.deleteFolder(folderName: folderName, indexPath: indexPath)
             }
