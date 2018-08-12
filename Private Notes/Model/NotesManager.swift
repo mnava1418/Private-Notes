@@ -11,37 +11,42 @@ import Foundation
 class NotesManager {
     
     private var notesByFolder:[String: [String]]
+    private let utilManager:UtilsManager
     
     init() {
+        self.utilManager = UtilsManager()
         self.notesByFolder = [String: [String]]()
-        notesByFolder["Folder 3"] = ["Note 3 a","Note 3 b","Note 3 c"]
-        notesByFolder["Folder 1"] = ["Note 1 a"]
-        notesByFolder["Folder 2"] = ["Note 2 a", "Note 2 b"]
-        notesByFolder["Folder 4"] = []
     }
     
-    func getNotesByFolder() -> [String: [String]] {
-        return notesByFolder
+    func getNotesByFolderName(folderNames: [String]) -> [String: [String]] {
+        for folder in folderNames {
+            self.notesByFolder[folder] = utilManager.getNotesByFolderName(folder: folder)
+        }
+     
+        return self.notesByFolder
     }
     
     func getFolders() -> [String] {
-        var folders = ["All Notes"]
-        var keys = Array(notesByFolder.keys)
+        var allFolders = ["All Notes"]
+        var folderNames = utilManager.getFolderNames()
         
-        if keys.count > 0 {
-            keys.sort()
-            folders += keys
+        if folderNames.count == 0 {
+            utilManager.createFolder(name: "Notes")
+            folderNames = utilManager.getFolderNames()
         }
         
-        return folders
+        folderNames.sort()
+        allFolders += folderNames
+        
+        return allFolders
     }
     
     func getAllNotes() -> [String] {
         var allNotes:[String] = []
-        let folders = notesByFolder.keys
+        let folders = self.notesByFolder.keys
         
         for folder in folders {
-            if let notes = notesByFolder[folder] {
+            if let notes = self.notesByFolder[folder] {
                 allNotes += notes
             }
         }
@@ -58,19 +63,20 @@ class NotesManager {
     }
     
     func addFolder(name: String) {
-        notesByFolder[name] = []
+        utilManager.createFolder(name: name)
     }
     
-    func removeFolder(name: String) {
-        notesByFolder.removeValue(forKey: name)
+    func removeFolder(folder: String) {
+        notesByFolder.removeValue(forKey: folder)
+        utilManager.deleteFolder(folder: folder)
     }
     
-    func updateFolder(oldName: String, newName:String) {
-        if let tempNotes = notesByFolder[oldName] {
+    /*func updateFolder(oldName: String, newName:String) {
+        /*if let tempNotes = notesByFolder[oldName] {
             removeFolder(name: oldName)
             notesByFolder[newName] = tempNotes
         } else {
             addFolder(name: newName)
-        }
-    }
+        }*/
+    }*/
 }
