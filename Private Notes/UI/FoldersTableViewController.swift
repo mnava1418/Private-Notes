@@ -141,7 +141,7 @@ class FoldersTableViewController: UITableViewController {
             let indexFolder = notesManager.getFolderIndex(folders: folders, folderName: name)
             let indexPath = IndexPath(row: indexFolder, section: 0)
             tableView.insertRows(at: [indexPath], with: .middle)
-            tableView.reloadData()
+            //tableView.reloadData()
         }
     }
     
@@ -219,7 +219,7 @@ class FoldersTableViewController: UITableViewController {
         headerCell.notesCount.text = String(allNotes.count)
         
         tableView.deleteRows(at: [indexPath], with: .fade)
-        tableView.reloadData()
+        //tableView.reloadData()
     }
     
     func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
@@ -233,7 +233,7 @@ class FoldersTableViewController: UITableViewController {
             self.present(blockScreen, animated: true)
         }else {
             if notes.count > 0 {
-                let confirmScreen = UIAlertController(title: "Are you sure?", message: "All notes in \(folderName) will be deleted", preferredStyle: .actionSheet)
+                let confirmScreen = UIAlertController(title: "Are you sure?", message: "All notes in \"\(folderName) \"will be deleted", preferredStyle: .actionSheet)
                 let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
                     OperationQueue.main.addOperation {
                         self.deleteFolder(folderName: folderName, indexPath: indexPath)
