@@ -16,6 +16,7 @@
 		501535A0209149D6008C2DA0 /* MyColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5015359F209149D6008C2DA0 /* MyColors.xcassets */; };
 		501535A32091606A008C2DA0 /* NotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501535A22091606A008C2DA0 /* NotesManager.swift */; };
 		502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */; };
+		5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067CB022120AE5B00DE4640 /* UtilsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		5015359F209149D6008C2DA0 /* MyColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MyColors.xcassets; sourceTree = "<group>"; };
 		501535A22091606A008C2DA0 /* NotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesManager.swift; sourceTree = "<group>"; };
 		502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
+		5067CB022120AE5B00DE4640 /* UtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				501535A22091606A008C2DA0 /* NotesManager.swift */,
+				5067CB022120AE5B00DE4640 /* UtilsManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
+				5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */,
 				501535A32091606A008C2DA0 /* NotesManager.swift in Sources */,
 				5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */,
 				502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */,
@@ -315,7 +319,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VGUJZ39WN5;
 				INFOPLIST_FILE = "Private Notes/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VGUJZ39WN5;
 				INFOPLIST_FILE = "Private Notes/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
