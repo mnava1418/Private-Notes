@@ -216,10 +216,9 @@ class FoldersTableViewController: UITableViewController {
         
         let headerIndexPath = IndexPath(row: 0, section: 0)
         let headerCell = tableView.cellForRow(at: headerIndexPath) as! FolderViewCell
-        headerCell.notesCount.text = String(allNotes.count)
+        headerCell.notesCount.text = String(self.allNotes.count)
         
         tableView.deleteRows(at: [indexPath], with: .fade)
-        //tableView.reloadData()
     }
     
     func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
