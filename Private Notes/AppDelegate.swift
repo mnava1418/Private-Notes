@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -17,11 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         let tabBarController = window?.rootViewController as! UITabBarController
         let splitViewController = tabBarController.viewControllers![0] as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         
-        navigationController.topViewController!.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
+        let foldersNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+        let noteNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        
+        noteNavigationController.topViewController!.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
+        
         splitViewController.delegate = self
         
+        //Set Manage Object Cobtext
+        let controller = foldersNavigationController.topViewController as! FoldersTableViewController
+        controller.managedObjectContext = self.persistentContainer.viewContext
+
         return true
     }
 
@@ -49,6 +57,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         return true
+    }
+    
+    // MARK: - Core Data stack
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        
+        let container = NSPersistentContainer(name: "privateNotes")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let nserror = error as NSError? {
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }
 
