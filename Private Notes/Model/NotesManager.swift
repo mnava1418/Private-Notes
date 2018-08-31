@@ -10,17 +10,19 @@ import Foundation
 
 class NotesManager {
     
-    private var notesByFolder:[String: [String]]
+    /*private var notesByFolder:[String: [String]]
     private let utilManager:UtilsManager
+    public var docsDir:[String]*/
     
     init() {
-        self.utilManager = UtilsManager()
+        /*self.utilManager = UtilsManager()
         self.notesByFolder = [String: [String]]()
+        self.docsDir = []*/
     }
     
-    func getNotesByFolderName(folderNames: [String]) -> [String: [String]] {
+    /*func getNotesByFolderName(folderNames: [String]) -> [String: [String]] {
         for folder in folderNames {
-            self.notesByFolder[folder] = utilManager.getNotesByFolderName(folder: folder)
+            self.notesByFolder[folder] = utilManager.getNotesByFolderName(folder: folder, docsDir: docsDir)
         }
      
         return self.notesByFolder
@@ -31,7 +33,7 @@ class NotesManager {
         var folderNames = utilManager.getFolderNames()
         
         if folderNames.count == 0 {
-            utilManager.createFolder(name: "Notes")
+            utilManager.createFolder(name: "Notes", docsDir: docsDir)
             folderNames = utilManager.getFolderNames()
         }
         
@@ -63,13 +65,13 @@ class NotesManager {
     }
     
     func addFolder(name: String) {
-        utilManager.createFolder(name: name)
+        utilManager.createFolder(name: name, docsDir: docsDir)
     }
     
     func removeFolder(folder: String) {
         notesByFolder.removeValue(forKey: folder)
         utilManager.deleteFolder(folder: folder)
-    }
+    }*/
     
     /*func updateFolder(oldName: String, newName:String) {
         /*if let tempNotes = notesByFolder[oldName] {

@@ -10,7 +10,7 @@ import Foundation
 
 class UtilsManager {
     
-    func getFolderNames() -> [String] {
+    /*func getFolderNames() -> [String] {
         let key = "folderNames"
         if let folderNames = UserDefaults.standard.value(forKey: key) as? [String] {
             return folderNames
@@ -19,17 +19,28 @@ class UtilsManager {
         }
     }
     
-    func createFolder(name: String) -> Void {
+    func createFolder(name: String, docsDir: [String]) -> Void {
         var folderNames = getFolderNames()
         folderNames.append(name)
         
         UserDefaults.standard.set(folderNames, forKey: "folderNames")
-        UserDefaults.standard.set(["Hola"], forKey: name)
         UserDefaults.standard.synchronize()
+        
+        let file = docsDir[0].appending("\(name).txt")
+        print(file)
+        let notes:NSArray = NSArray(array: ["Hola\(name)", "Adios\(name)"])
+        
+        do {
+            try notes.write(toFile: file, atomically: true)
+            print("Success! Yum.")
+        } catch {
+            print("Invalid Selection.")
+        }
     }
     
-    func getNotesByFolderName(folder: String) -> [String] {
-        if let notesByFolder = UserDefaults.standard.value(forKey: folder) as? [String] {
+    func getNotesByFolderName(folder: String, docsDir: [String]) -> [String] {
+        let file = docsDir[0].appending("\(folder).txt")
+        if let notesByFolder = NSArray(contentsOfFile: file) as? [String] {
             return notesByFolder
         } else {
             return []
@@ -43,9 +54,11 @@ class UtilsManager {
             folderNames.remove(at: folderIndex)
             
             UserDefaults.standard.set(folderNames, forKey: "folderNames")
-            UserDefaults.standard.removeObject(forKey: folder)
             UserDefaults.standard.synchronize()
+            
+            //let file = docsDir[0].appending(folder)
+            //docsDir[0]
         }
-    }
+    }*/
     
 }
