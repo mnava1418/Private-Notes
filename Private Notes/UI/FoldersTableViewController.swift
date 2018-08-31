@@ -7,18 +7,41 @@
 //
 
 import UIKit
+import CoreData
 
-class FoldersTableViewController: UITableViewController {
+class FoldersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    let notesManager = NotesManager()
-    var folders:[String] = []
-    var notesByFolder:[String: [String]] = [:]
-    var allNotes:[String] = []
+    var managedObjectContext: NSManagedObjectContext? = nil
+    
+    var _fetchedResultsController: NSFetchedResultsController<Folder>? = nil
+    var fetchedResultsController: NSFetchedResultsController<Folder> {
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        
+        let fetchRequest: NSFetchRequest<Folder> = Folder.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        
+        aFetchedResultsController.delegate = self
+        
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        return _fetchedResultsController!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.getNotesInfo()
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(getNewFolderName))
         self.navigationItem.rightBarButtonItem = addButton
@@ -30,30 +53,39 @@ class FoldersTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return folders.count
+        let numberOfFolders = self.fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return numberOfFolders + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "folderCell", for: indexPath) as! FolderViewCell
-        cell.label.text = folders[indexPath.row]
         
         if indexPath.row == 0 {
-            cell.notesCount.text = String(allNotes.count)
+            cell.label.text = "All Notes"
+            cell.notesCount.text = String(0)
             cell.notesCount.textColor = UIColor(named: "Blue")
             cell.label.textColor = UIColor(named: "Blue")
             cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
         } else{
-            let folder = folders[indexPath.row]
-            var currentNotesCount = 0
             
-            if let currentNotes = notesByFolder[folder] {
-                currentNotesCount = currentNotes.count
+            var coreDataIndexPath: IndexPath = indexPath
+            coreDataIndexPath.row = indexPath.row - 1
+            
+            let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
+            var notesCount = 0
+            
+            if let folderNotes = folder.notes {
+                notesCount = folderNotes.allObjects.count
             }
             
-            cell.notesCount.text = String(currentNotesCount)
+            cell.label.text = folder.name
+            cell.notesCount.text = String(notesCount)
             cell.notesCount.textColor = UIColor(named: "Black")
             cell.label.textColor = UIColor(named: "Black")
             cell.label.font = UIFont.boldSystemFont(ofSize: 15.0)
@@ -63,6 +95,7 @@ class FoldersTableViewController: UITableViewController {
         cell.icon.tintColor = UIColor(named: "Blue")
         cell.forward.image = UIImage(named: "forward60")?.withRenderingMode(.alwaysTemplate)
         cell.forward.tintColor = UIColor(named: "Blue")
+        
         return cell
     }
     
@@ -111,7 +144,7 @@ class FoldersTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    /*override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             self.confirmDeleteFolder(folderName: self.folders[indexPath.row], indexPath: indexPath)
@@ -123,26 +156,34 @@ class FoldersTableViewController: UITableViewController {
         updateAction.backgroundColor = UIColor(named: "Blue")*/
         
         return [deleteAction]
-    }
+    }*/
     
     //MARK: Customize Methods
     
     func addFolder(name: String) {
-        if name != ""{
-            if let indexFolder = folders.index(of: name){
-                if indexFolder >= 0 {
-                    return
-                }
-            }
-            
-            notesManager.addFolder(name: name)
-            getNotesInfo()
-            
-            let indexFolder = notesManager.getFolderIndex(folders: folders, folderName: name)
-            let indexPath = IndexPath(row: indexFolder, section: 0)
-            tableView.insertRows(at: [indexPath], with: .middle)
-            //tableView.reloadData()
+        guard let context = self.managedObjectContext else {
+            return
         }
+        
+        if self.isExistingFolder(folderName: name) {
+            return
+        }
+        
+        let folder = NSEntityDescription.insertNewObject(forEntityName: "Folder", into: context ) as! Folder
+        folder.name = name
+        
+        do {
+            try context.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        let indexPath = self.fetchedResultsController.indexPath(forObject: folder)
+        var tableIndexPath = indexPath
+        tableIndexPath!.row = indexPath!.row + 1
+        
+        tableView.insertRows(at: [tableIndexPath!], with: .middle)
     }
     
     /*func updateFolder(oldName:String, newName:String) {
@@ -209,9 +250,9 @@ class FoldersTableViewController: UITableViewController {
         self.present(updateFolderScreen, animated: true)*/
     }*/
     
-    func deleteFolder(folderName: String, indexPath: IndexPath)
+    /*func deleteFolder(folderName: String, indexPath: IndexPath)
     {
-        notesManager.removeFolder(folder: folderName)
+        self.notesManager.removeFolder(folder: folderName)
         getNotesInfo()
         
         let headerIndexPath = IndexPath(row: 0, section: 0)
@@ -219,12 +260,12 @@ class FoldersTableViewController: UITableViewController {
         headerCell.notesCount.text = String(self.allNotes.count)
         
         tableView.deleteRows(at: [indexPath], with: .fade)
-    }
+    }*/
     
-    func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
-        let notes = Array(notesByFolder[folderName]!)
+    /*func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
+        let notes = Array(self.notesByFolder[folderName]!)
         
-        if folders.count <= 2 {
+        if self.folders.count <= 2 {
             let blockScreen = UIAlertController(title: "At least one folder must exit.", message: "", preferredStyle: .alert)
             let okAction:UIAlertAction = UIAlertAction(title: "Ok", style: .default )
             
@@ -248,13 +289,33 @@ class FoldersTableViewController: UITableViewController {
                 self.deleteFolder(folderName: folderName, indexPath: indexPath)
             }
         }
+    }*/
+    
+    func isExistingFolder(folderName: String) -> Bool {
+        let predicate = NSPredicate(format: "name == %@", folderName )
+        self.fetchedResultsController.fetchRequest.predicate = predicate
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+            let numberOfFolders = self.fetchedResultsController.sections?[0].numberOfObjects ?? 0
+            self.fetchedResultsController.fetchRequest.predicate = nil
+            try self.fetchedResultsController.performFetch()
+            
+            if numberOfFolders > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return true
+        }
     }
     
-    func getNotesInfo() {
-        folders = notesManager.getFolders()
-        notesByFolder = notesManager.getNotesByFolderName(folderNames: folders)
-        allNotes = notesManager.getAllNotes()
-    }
+    /*func getNotesInfo() {
+        self.folders = self.notesManager.getFolders()
+        self.notesByFolder = self.notesManager.getNotesByFolderName(folderNames: self.folders)
+        self.allNotes = self.notesManager.getAllNotes()
+    }*/
     
     /*
     // MARK: - Navigation
