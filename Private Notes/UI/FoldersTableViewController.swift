@@ -95,6 +95,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         cell.icon.tintColor = UIColor(named: "Blue")
         cell.forward.image = UIImage(named: "forward60")?.withRenderingMode(.alwaysTemplate)
         cell.forward.tintColor = UIColor(named: "Blue")
+        //cell.contentView.backgroundColor = UIColor(named: "Blue")
         
         return cell
     }
@@ -180,10 +181,15 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         }
         
         let indexPath = self.fetchedResultsController.indexPath(forObject: folder)
+        
+        for i in 0..<self.tableView.numberOfRows(inSection: 0) {
+            self.tableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
+        }
+        
         var tableIndexPath = indexPath
         tableIndexPath!.row = indexPath!.row + 1
         
-        tableView.insertRows(at: [tableIndexPath!], with: .middle)
+        self.tableView.insertRows(at: [tableIndexPath!], with: .middle)
     }
     
     /*func updateFolder(oldName:String, newName:String) {
