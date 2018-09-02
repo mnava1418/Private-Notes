@@ -19,6 +19,8 @@
 		502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */; };
 		5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067CB022120AE5B00DE4640 /* UtilsManager.swift */; };
 		50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */; };
+		50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45716213B82240043C9DD /* NotesTableViewController.swift */; };
+		50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45718213B82D80043C9DD /* NoteViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		5067CB022120AE5B00DE4640 /* UtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsManager.swift; sourceTree = "<group>"; };
 		50A0F2C821375876007AAE5F /* privateNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = privateNotes.xcdatamodel; sourceTree = "<group>"; };
+		50C45716213B82240043C9DD /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
+		50C45718213B82D80043C9DD /* NoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +90,9 @@
 			children = (
 				5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */,
 				5015359D2090F750008C2DA0 /* FolderViewCell.swift */,
+				50C45718213B82D80043C9DD /* NoteViewCell.swift */,
 				502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */,
+				50C45716213B82240043C9DD /* NotesTableViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -175,6 +181,8 @@
 			files = (
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
 				5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */,
+				50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */,
+				50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */,
 				501535A32091606A008C2DA0 /* NotesManager.swift in Sources */,
 				50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */,
 				5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */,

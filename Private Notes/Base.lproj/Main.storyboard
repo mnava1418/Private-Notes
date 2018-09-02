@@ -131,12 +131,58 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Folders" largeTitleDisplayMode="always" id="Gdf-6c-u80"/>
                     <connections>
-                        <segue destination="eTS-0I-bYN" kind="showDetail" id="JYY-sK-6rL"/>
+                        <segue destination="oLs-jq-2ym" kind="show" identifier="showNotes" id="dmH-NL-f3H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="szq-KA-MsI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1328" y="-373"/>
+        </scene>
+        <!--Notes Table View Controller-->
+        <scene sceneID="WI9-0y-uoh">
+            <objects>
+                <tableViewController id="oLs-jq-2ym" customClass="NotesTableViewController" customModule="Private_Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VrH-Rt-UH3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="separatorColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="noteCell" rowHeight="45" id="Vh6-qU-5uz" customClass="NoteViewCell" customModule="Private_Notes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vh6-qU-5uz" id="Wbb-UE-YUf">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dg-2V-exL">
+                                            <rect key="frame" x="20" y="11" width="374" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="note" destination="7dg-2V-exL" id="bAd-EF-guR"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="oLs-jq-2ym" id="kwr-kV-YRn"/>
+                            <outlet property="delegate" destination="oLs-jq-2ym" id="B24-Qg-hc9"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="eTS-0I-bYN" kind="showDetail" identifier="showDetail" id="FnC-VT-zkz"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Og-ld-gAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2182.608695652174" y="-373.36956521739131"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hKc-Zw-sW6">
@@ -230,6 +276,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5tp-AD-4RW"/>
+        <segue reference="FnC-VT-zkz"/>
     </inferredMetricsTieBreakers>
 </document>

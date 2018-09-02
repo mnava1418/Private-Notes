@@ -12,6 +12,7 @@ import CoreData
 class FoldersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
+    var folderName = ""
     
     var _fetchedResultsController: NSFetchedResultsController<Folder>? = nil
     var fetchedResultsController: NSFetchedResultsController<Folder> {
@@ -105,6 +106,12 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         if(indexPath.row == 0) {
             return
+        }else{
+            var coreDataIndexPath = indexPath
+            coreDataIndexPath.row = indexPath.row - 1
+            let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
+            self.folderName = folder.name!
+            self.performSegue(withIdentifier: "showNotes", sender: nil)
         }
     }
 
@@ -345,14 +352,12 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         }
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        let destination = segue.destination as! NotesTableViewController
+        destination.folderName = folderName
     }
-    */
-
 }
