@@ -32,10 +32,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         do {
             try _fetchedResultsController!.performFetch()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        } catch {}
         
         return _fetchedResultsController!
     }
@@ -73,7 +70,6 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             cell.label.textColor = UIColor(named: "Blue")
             cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
         } else{
-            
             var coreDataIndexPath: IndexPath = indexPath
             coreDataIndexPath.row = indexPath.row - 1
             
@@ -95,7 +91,6 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         cell.icon.tintColor = UIColor(named: "Blue")
         cell.forward.image = UIImage(named: "forward60")?.withRenderingMode(.alwaysTemplate)
         cell.forward.tintColor = UIColor(named: "Blue")
-        //cell.contentView.backgroundColor = UIColor(named: "Blue")
         
         return cell
     }
@@ -107,6 +102,10 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         selectedCell.notesCount.textColor = UIColor(named: "White")
         selectedCell.icon.tintColor = UIColor(named: "White")
         selectedCell.forward.tintColor = UIColor(named: "White")
+        
+        if(indexPath.row == 0) {
+            return
+        }
     }
 
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -145,28 +144,47 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         }
     }
     
-    /*override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        for i in 0..<self.tableView.numberOfRows(inSection: 0) {
+            
+            let currentIndexPath: IndexPath = IndexPath(row: i, section: 0)
+            if let cell = tableView.cellForRow(at: currentIndexPath) as? FolderViewCell {
+                cell.icon.tintColor = UIColor(named: "Blue")
+                cell.forward.tintColor = UIColor(named: "Blue")
+                
+                if currentIndexPath.row == 0 {
+                    cell.label.textColor = UIColor(named: "Blue")
+                    cell.notesCount.textColor = UIColor(named: "Blue")
+                } else{
+                    cell.label.textColor = UIColor(named: "Black")
+                    cell.notesCount.textColor = UIColor(named: "Black")
+                }
+            }
+        }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.confirmDeleteFolder(folderName: self.folders[indexPath.row], indexPath: indexPath)
+            self.confirmDeleteFolder(indexPath: indexPath)
         }
         
-        /*let updateAction = UITableViewRowAction(style: .normal, title: "Update") { (action, indexPath) in
-            self.getUpdatedFolderName(oldName: self.folders[indexPath.row] )
+        let updateAction = UITableViewRowAction(style: .normal, title: "Update") { (action, indexPath) in
+            self.getUpdatedFolderName(indexPath: indexPath)
         }
-        updateAction.backgroundColor = UIColor(named: "Blue")*/
+        updateAction.backgroundColor = UIColor(named: "Blue")
         
-        return [deleteAction]
-    }*/
+        return [deleteAction, updateAction]
+    }
     
     //MARK: Customize Methods
     
-    func addFolder(name: String) {
+    func addFolder(newName: String) {
         guard let context = self.managedObjectContext else {
             return
         }
         
-        if self.isExistingFolder(folderName: name) {
+        var name = newName
+        name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if name == "" || self.isExistingFolder(folderName: name) {
             return
         }
         
@@ -175,10 +193,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         do {
             try context.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        } catch {}
         
         let indexPath = self.fetchedResultsController.indexPath(forObject: folder)
         
@@ -192,19 +207,27 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         self.tableView.insertRows(at: [tableIndexPath!], with: .middle)
     }
     
-    /*func updateFolder(oldName:String, newName:String) {
-        /*if newName != ""{
-            if let indexFolder = folders.index(of: newName){
-                if indexFolder >= 0 {
-                    return
-                }
-            }
-            
-            notesManager.updateFolder(oldName: oldName, newName: newName)
-            getNotesInfo()
-            tableView.reloadData()
-        }*/
-    }*/
+    func updateFolder(coreDataIndexPath: IndexPath, name:String) {
+        guard let context = self.managedObjectContext else {
+            return
+        }
+        
+        var newName = name
+        newName = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if newName == "" || self.isExistingFolder(folderName: newName) {
+            return
+        }
+        
+        let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
+        folder.name = newName
+
+        do {
+            try context.save()
+        } catch {}
+        
+        self.tableView.reloadData()
+    }
     
     @objc func getNewFolderName() {
         if tableView.isEditing {
@@ -220,7 +243,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
             if let name = newFolderScreen.textFields![0].text{
                 OperationQueue.main.addOperation {
-                    self.addFolder(name: name)
+                    self.addFolder(newName: name)
                 }
             }
         }
@@ -232,9 +255,12 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         self.present(newFolderScreen, animated: true)
     }
-    /*
-    func getUpdatedFolderName(oldName: String) {
-        /*let updateFolderScreen = UIAlertController(title: "Update Folder", message: "Enter folder name", preferredStyle: .alert)
+    
+    func getUpdatedFolderName(indexPath: IndexPath) {
+        var coreDataIndexPath: IndexPath = indexPath
+        coreDataIndexPath.row = indexPath.row - 1
+        
+        let updateFolderScreen = UIAlertController(title: "Update Folder", message: "Enter folder name", preferredStyle: .alert)
         
         updateFolderScreen.addTextField { (newName: UITextField) in
             newName.placeholder = "Folder Name"
@@ -243,7 +269,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
             if let newName = updateFolderScreen.textFields![0].text{
                 OperationQueue.main.addOperation {
-                    self.updateFolder(oldName: oldName, newName: newName)
+                    self.updateFolder(coreDataIndexPath: coreDataIndexPath, name: newName)
                 }
             }
         }
@@ -253,49 +279,51 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         updateFolderScreen.addAction(saveAction)
         updateFolderScreen.addAction(cancelAction)
         
-        self.present(updateFolderScreen, animated: true)*/
-    }*/
+        self.present(updateFolderScreen, animated: true)
+    }
     
-    /*func deleteFolder(folderName: String, indexPath: IndexPath)
-    {
-        self.notesManager.removeFolder(folder: folderName)
-        getNotesInfo()
+    func deleteFolder(coreDataIndexPath: IndexPath, indexPath: IndexPath) {
+        guard let context = self.managedObjectContext else {
+            return
+        }
         
-        let headerIndexPath = IndexPath(row: 0, section: 0)
-        let headerCell = tableView.cellForRow(at: headerIndexPath) as! FolderViewCell
-        headerCell.notesCount.text = String(self.allNotes.count)
+        let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
+        self.managedObjectContext?.delete(folder)
+         
+         do {
+            try context.save()
+         } catch {}
         
         tableView.deleteRows(at: [indexPath], with: .fade)
-    }*/
+    }
     
-    /*func confirmDeleteFolder(folderName: String, indexPath: IndexPath) {
-        let notes = Array(self.notesByFolder[folderName]!)
+    func confirmDeleteFolder(indexPath: IndexPath) {
+        var coreDataIndexPath: IndexPath = indexPath
+        coreDataIndexPath.row = indexPath.row - 1
+        let folder  = self.fetchedResultsController.object(at: coreDataIndexPath)
+        var notesCount = 0
         
-        if self.folders.count <= 2 {
-            let blockScreen = UIAlertController(title: "At least one folder must exit.", message: "", preferredStyle: .alert)
-            let okAction:UIAlertAction = UIAlertAction(title: "Ok", style: .default )
-            
-            blockScreen.addAction(okAction)
-            self.present(blockScreen, animated: true)
-        }else {
-            if notes.count > 0 {
-                let confirmScreen = UIAlertController(title: "Are you sure?", message: "All notes in \"\(folderName) \"will be deleted", preferredStyle: .actionSheet)
-                let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
-                    OperationQueue.main.addOperation {
-                        self.deleteFolder(folderName: folderName, indexPath: indexPath)
-                    }
-                }
-                let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
-                
-                confirmScreen.addAction(deleteAction)
-                confirmScreen.addAction(cancelAction)
-                
-                self.present(confirmScreen, animated: true)
-            } else {
-                self.deleteFolder(folderName: folderName, indexPath: indexPath)
-            }
+        if let folderNotes = folder.notes {
+            notesCount = folderNotes.allObjects.count
         }
-    }*/
+        
+        if notesCount > 0 {
+            let confirmScreen = UIAlertController(title: "Are you sure?", message: "All notes in \(folder.name!) will be deleted", preferredStyle: .actionSheet)
+            let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
+                OperationQueue.main.addOperation {
+                    self.deleteFolder(coreDataIndexPath: coreDataIndexPath, indexPath: indexPath)
+                }
+            }
+            let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            confirmScreen.addAction(deleteAction)
+            confirmScreen.addAction(cancelAction)
+            
+            self.present(confirmScreen, animated: true)
+        } else {
+            self.deleteFolder(coreDataIndexPath: coreDataIndexPath, indexPath: indexPath)
+        }
+    }
     
     func isExistingFolder(folderName: String) -> Bool {
         let predicate = NSPredicate(format: "name == %@", folderName )
@@ -316,12 +344,6 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             return true
         }
     }
-    
-    /*func getNotesInfo() {
-        self.folders = self.notesManager.getFolders()
-        self.notesByFolder = self.notesManager.getNotesByFolderName(folderNames: self.folders)
-        self.allNotes = self.notesManager.getAllNotes()
-    }*/
     
     /*
     // MARK: - Navigation
