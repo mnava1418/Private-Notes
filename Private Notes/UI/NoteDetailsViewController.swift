@@ -12,15 +12,17 @@ class NoteDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationItem.largeTitleDisplayMode = .never
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let mainViewController = appDelegate.window?.rootViewController as! UISplitViewController
+        self.navigationItem.rightBarButtonItem = mainViewController.displayModeButtonItem
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

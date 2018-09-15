@@ -16,11 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let tabBarController = window?.rootViewController as! UITabBarController
-        let splitViewController = tabBarController.viewControllers![0] as! UISplitViewController
+        //let tabBarController = window?.rootViewController as! UITabBarController
+        let splitViewController = window?.rootViewController as! UISplitViewController
         
-        let foldersNavigationController = splitViewController.viewControllers[0] as! UINavigationController
-        let noteNavigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        let foldersNavigationController = splitViewController.viewControllers.first as! UINavigationController
+        let noteNavigationController = splitViewController.viewControllers.last as! UINavigationController
         
         noteNavigationController.topViewController!.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
         
@@ -58,6 +58,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         return true
     }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let detailViewController = mainStoryBoard.instantiateViewController(withIdentifier: "DetailNavigationController") as! UINavigationController
+        detailViewController.topViewController?.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
+    
+        return detailViewController
+    }
+    
+    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let masterViewController = mainStoryBoard.instantiateViewController(withIdentifier: "MasterNavigationController") as! UINavigationController
+        
+        //Set Manage Object Cobtext
+        let controller = masterViewController.topViewController as! FoldersTableViewController
+        controller.managedObjectContext = self.persistentContainer.viewContext
+        
+        return masterViewController
+    }
+
     
     // MARK: - Core Data stack
     

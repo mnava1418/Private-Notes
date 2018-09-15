@@ -12,7 +12,8 @@ import CoreData
 class FoldersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
-    var folderName = ""
+    var isFolderSelected = false
+    var selectedFolder:Folder? = nil
     
     var _fetchedResultsController: NSFetchedResultsController<Folder>? = nil
     var fetchedResultsController: NSFetchedResultsController<Folder> {
@@ -44,6 +45,26 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(getNewFolderName))
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
+        
+        if let indexFolder = UserDefaults.standard.value(forKey: "indexFolder") as? Int
+        {
+            if indexFolder != -1 {
+                let coreDataIndexPath:IndexPath = IndexPath(row: indexFolder, section: 0)
+                let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
+                self.selectedFolder = folder
+                self.isFolderSelected = true
+                self.performSegue(withIdentifier: "showNotes", sender: nil)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if( !isFolderSelected ) {
+            UserDefaults.standard.set(-1, forKey: "indexFolder")
+            UserDefaults.standard.synchronize()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,8 +130,13 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         }else{
             var coreDataIndexPath = indexPath
             coreDataIndexPath.row = indexPath.row - 1
+            
+            UserDefaults.standard.set(coreDataIndexPath.row, forKey: "indexFolder")
+            UserDefaults.standard.synchronize()
+            
             let folder = self.fetchedResultsController.object(at: coreDataIndexPath)
-            self.folderName = folder.name!
+            self.isFolderSelected = true
+            self.selectedFolder = folder
             self.performSegue(withIdentifier: "showNotes", sender: nil)
         }
     }
@@ -358,6 +384,8 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         let destination = segue.destination as! NotesTableViewController
-        destination.folderName = folderName
+        destination.selectedFolder = self.selectedFolder
+        destination.managedObjectContext = self.managedObjectContext
+        destination.folderViewController = self
     }
 }

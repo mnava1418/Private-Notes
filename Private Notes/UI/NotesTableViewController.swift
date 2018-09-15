@@ -7,14 +7,57 @@
 //
 
 import UIKit
+import CoreData
 
-class NotesTableViewController: UITableViewController {
+class NotesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var folderName = ""
+    var selectedFolder:Folder? = nil
+    var managedObjectContext: NSManagedObjectContext? = nil
+    var folderViewController:FoldersTableViewController!
+
+    var _fetchedResultsController: NSFetchedResultsController<Note>? = nil
+    var fetchedResultsController: NSFetchedResultsController<Note> {
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        
+        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "content", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let currentFolder = selectedFolder {
+            let predicate = NSPredicate(format: "folder == %@", currentFolder)
+            fetchRequest.predicate = predicate
+        }
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        
+        aFetchedResultsController.delegate = self
+        
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {}
+        
+        return _fetchedResultsController!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.folderName
+        
+        if let currentFolder = selectedFolder {
+            self.title = currentFolder.name
+        }
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+        self.navigationItem.rightBarButtonItems = [ addButton, editButtonItem]
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        folderViewController.isFolderSelected = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,25 +67,19 @@ class NotesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteViewCell
+        let note = self.fetchedResultsController.object(at: indexPath)
+        cell.note.text = note.content
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -78,6 +115,10 @@ class NotesTableViewController: UITableViewController {
         return true
     }
     */
+    
+    @objc func addNote() {
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
+    }
 
     /*
     // MARK: - Navigation
