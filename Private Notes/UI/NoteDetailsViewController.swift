@@ -12,7 +12,6 @@ import CoreData
 class NoteDetailsViewController: UIViewController {
 
     @IBOutlet weak var noteContent: UITextView!
-    var notesViewController: NotesTableViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var selectedFolder:Folder? = nil
     var action = ""
@@ -22,7 +21,10 @@ class NoteDetailsViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let mainViewController = appDelegate.window?.rootViewController as! UISplitViewController
-        self.navigationItem.rightBarButtonItem = mainViewController.displayModeButtonItem
+        //self.navigationItem.leftBarButtonItem = mainViewController.displayModeButtonItem
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
+        self.navigationItem.rightBarButtonItem = doneButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -35,7 +37,6 @@ class NoteDetailsViewController: UIViewController {
             
             if(self.action == "addNote") {
                 self.addNote( content: content.text)
-                notesViewController?.recalculateData = true
             }
         }
     }
@@ -58,5 +59,19 @@ class NoteDetailsViewController: UIViewController {
         do {
             try context.save()
         } catch {}
+        
+        self.action = "update"
+    }
+    
+    @objc func doneEditing() {
+        if let content = noteContent {
+            if(content.text.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
+                return
+            }
+            
+            if(self.action == "addNote") {
+                self.addNote( content: content.text)
+            }
+        }
     }
 }

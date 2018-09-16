@@ -14,7 +14,6 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     var selectedFolder:Folder? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var folderViewController:FoldersTableViewController!
-    var recalculateData = false
     var action = ""
     
     var _fetchedResultsController: NSFetchedResultsController<Note>? = nil
@@ -65,15 +64,12 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(recalculateData) {
-            recalculateData = false
-            do {
-                try self.fetchedResultsController.performFetch()
-            } catch {
-            }
-            
-            self.tableView.reloadData()
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
         }
+        
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -147,7 +143,6 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         let destination = segue.destination as! NoteDetailsViewController
-        destination.notesViewController = self
         destination.managedObjectContext = self.managedObjectContext
         destination.selectedFolder = self.selectedFolder
         destination.action = self.action

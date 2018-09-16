@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let foldersNavigationController = splitViewController.viewControllers.first as! UINavigationController
         let noteNavigationController = splitViewController.viewControllers.last as! UINavigationController
         
-        noteNavigationController.topViewController!.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
+        //noteNavigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         
         splitViewController.delegate = self
         
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         let detailViewController = mainStoryBoard.instantiateViewController(withIdentifier: "DetailNavigationController") as! UINavigationController
-        detailViewController.topViewController?.navigationItem.rightBarButtonItem = splitViewController.displayModeButtonItem
+        //detailViewController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
     
         return detailViewController
     }
