@@ -94,7 +94,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         if indexPath.row == 0 {
             cell.label.text = "All Notes"
-            cell.notesCount.text = String(0)
+            cell.notesCount.text = String(self.getAllNotesCount())
             cell.notesCount.textColor = UIColor(named: "Blue")
             cell.label.textColor = UIColor(named: "Blue")
             cell.icon.image = UIImage(named: "box60")?.withRenderingMode(.alwaysTemplate)
@@ -354,6 +354,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
                 OperationQueue.main.addOperation {
                     self.deleteFolder(coreDataIndexPath: coreDataIndexPath, indexPath: indexPath)
+                    self.tableView.reloadData()
                 }
             }
             let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -364,6 +365,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             self.present(confirmScreen, animated: true)
         } else {
             self.deleteFolder(coreDataIndexPath: coreDataIndexPath, indexPath: indexPath)
+            self.tableView.reloadData()
         }
     }
     
@@ -385,6 +387,22 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         } catch {
             return true
         }
+    }
+    
+    func getAllNotesCount() -> Int {
+        var allNotesCount = 0
+        let numberOfFolders = self.fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        
+        for i in 0..<numberOfFolders {
+            let coreDataIndexPath = IndexPath(row: i, section: 0)
+            let currenFolder = self.fetchedResultsController.object(at: coreDataIndexPath)
+            
+            if let folderNotes = currenFolder.notes {
+                allNotesCount += folderNotes.allObjects.count
+            }
+        }
+        
+        return allNotesCount
     }
     
     // MARK: - Navigation
