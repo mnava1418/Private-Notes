@@ -24,7 +24,7 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         }
         
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "content", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -91,7 +91,26 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteViewCell
         let note = self.fetchedResultsController.object(at: indexPath)
+        
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = .current
+        
+        let strCurrentDate = dateFormatter.string(from: currentDate)
+        var strNoteDate = dateFormatter.string(from: note.date!)
+        
+        if( strCurrentDate == strNoteDate) {
+            dateFormatter.dateFormat = "HH:mm"
+            strNoteDate = dateFormatter.string(from: note.date!)
+        }
+        
         cell.note.text = note.content
+        cell.note.textColor = UIColor(named: "Black")
+
+        cell.noteTime.text = strNoteDate
+        cell.noteTime.textColor = UIColor(named: "Blue" )
         
         return cell
     }

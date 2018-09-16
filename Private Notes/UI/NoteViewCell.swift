@@ -10,6 +10,7 @@ import UIKit
 
 class NoteViewCell: UITableViewCell {
 
+    @IBOutlet weak var noteTime: UILabel!
     @IBOutlet weak var note: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

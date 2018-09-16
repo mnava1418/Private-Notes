@@ -53,6 +53,7 @@ class NoteDetailsViewController: UIViewController {
         let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as! Note
         note.folder = self.selectedFolder
         note.content = content
+        note.date = Date()
         
         do {
             try context.save()

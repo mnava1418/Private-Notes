@@ -6,10 +6,11 @@
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="folder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder" inverseName="notes" inverseEntity="Folder" syncable="YES"/>
     </entity>
     <elements>
         <element name="Folder" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Note" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Note" positionX="-54" positionY="-9" width="128" height="90"/>
     </elements>
 </model>
