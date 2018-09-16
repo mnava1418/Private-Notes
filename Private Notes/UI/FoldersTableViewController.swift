@@ -65,6 +65,13 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             UserDefaults.standard.set(-1, forKey: "indexFolder")
             UserDefaults.standard.synchronize()
         }
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+        }
+        
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

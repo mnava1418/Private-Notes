@@ -136,7 +136,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="eTS-0I-bYN" kind="showDetail" identifier="showDetail" id="wBf-5P-EHv"/>
+                        <segue destination="qEE-hA-7Zr" kind="showDetail" identifier="showDetail" id="fee-nu-odk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Og-ld-gAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -181,7 +181,6 @@
                                 <color key="tintColor" name="Black"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -194,6 +193,9 @@
                         <viewLayoutGuide key="safeArea" id="Unf-63-Map"/>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="gmW-0x-HVG"/>
+                    <connections>
+                        <outlet property="noteContent" destination="aYN-ms-6mI" id="Z0m-DB-8du"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ah-0l-qOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -253,6 +255,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wBf-5P-EHv"/>
+        <segue reference="fee-nu-odk"/>
     </inferredMetricsTieBreakers>
 </document>

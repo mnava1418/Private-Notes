@@ -14,7 +14,9 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     var selectedFolder:Folder? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var folderViewController:FoldersTableViewController!
-
+    var recalculateData = false
+    var action = ""
+    
     var _fetchedResultsController: NSFetchedResultsController<Note>? = nil
     var fetchedResultsController: NSFetchedResultsController<Note> {
         if _fetchedResultsController != nil {
@@ -60,6 +62,20 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         folderViewController.isFolderSelected = false
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if(recalculateData) {
+            recalculateData = false
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -100,34 +116,21 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         }    
     }
     */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     @objc func addNote() {
+        self.action = "addNote"
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
 
-    /*
+    
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        let destination = segue.destination as! NoteDetailsViewController
+        destination.notesViewController = self
+        destination.managedObjectContext = self.managedObjectContext
+        destination.selectedFolder = self.selectedFolder
+        destination.action = self.action
     }
-    */
-
 }
