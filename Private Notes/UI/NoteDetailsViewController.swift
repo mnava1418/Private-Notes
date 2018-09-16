@@ -19,10 +19,6 @@ class NoteDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let mainViewController = appDelegate.window?.rootViewController as! UISplitViewController
-        //self.navigationItem.leftBarButtonItem = mainViewController.displayModeButtonItem
-        
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
         self.navigationItem.rightBarButtonItem = doneButton
     }

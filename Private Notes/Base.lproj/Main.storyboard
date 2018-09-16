@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rZp-zj-Fun">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dCP-fc-IPd">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -154,7 +154,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="qEE-hA-7Zr" kind="showDetail" identifier="showDetail" id="fee-nu-odk"/>
+                        <segue destination="qEE-hA-7Zr" kind="show" identifier="showDetail" id="fee-nu-odk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Og-ld-gAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,54 +217,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ah-0l-qOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1327.536231884058" y="556.79347826086962"/>
-        </scene>
-        <!--Notes-->
-        <scene sceneID="7p9-80-2jk">
-            <objects>
-                <splitViewController id="rZp-zj-Fun" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notes" image="notes" id="6RN-Bl-3tw"/>
-                    <connections>
-                        <segue destination="dCP-fc-IPd" kind="relationship" relationship="masterViewController" id="ggc-SI-U6A"/>
-                        <segue destination="eTS-0I-bYN" kind="relationship" relationship="detailViewController" id="5tp-AD-4RW"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fIj-4L-nb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-343" y="-4"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Z1b-Mc-qGS">
-            <objects>
-                <navigationController storyboardIdentifier="DetailNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="eTS-0I-bYN" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MU9-Dc-Dw6">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" name="Blue"/>
-                        <color key="barTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </textAttributes>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="qEE-hA-7Zr" kind="relationship" relationship="rootViewController" id="yLn-52-qUq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4xy-5z-fRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="524" y="557"/>
+            <point key="canvasLocation" x="3080" y="-373"/>
         </scene>
     </scenes>
     <resources>
         <image name="folder60" width="60" height="60"/>
         <image name="forward60" width="60" height="60"/>
-        <image name="notes" width="25" height="25"/>
         <namedColor name="Black">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -275,7 +233,4 @@
             <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fee-nu-odk"/>
-    </inferredMetricsTieBreakers>
 </document>
