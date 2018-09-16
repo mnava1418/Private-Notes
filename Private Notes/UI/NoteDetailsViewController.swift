@@ -21,6 +21,13 @@ class NoteDetailsViewController: UIViewController {
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
         self.navigationItem.rightBarButtonItem = doneButton
+        
+        if(self.action == "addNote")
+        {
+            noteContent.becomeFirstResponder()
+        }else {
+            noteContent.resignFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -278,6 +278,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         newFolderScreen.addTextField { (name: UITextField) in
             name.placeholder = "Folder Name"
+            name.autocapitalizationType = .words
         }
         
         let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
@@ -304,6 +305,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         
         updateFolderScreen.addTextField { (newName: UITextField) in
             newName.placeholder = "Folder Name"
+            newName.autocapitalizationType = .words
         }
         
         let saveAction:UIAlertAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction) in
