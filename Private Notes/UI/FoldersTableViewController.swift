@@ -336,7 +336,7 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
             try context.save()
          } catch {}
         
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     func confirmDeleteFolder(indexPath: IndexPath) {

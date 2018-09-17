@@ -115,27 +115,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dg-2V-exL">
-                                            <rect key="frame" x="20.000000000000004" y="11" width="39.333333333333343" height="23"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dg-2V-exL">
+                                            <rect key="frame" x="20" y="11" width="271" height="23"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="16/09/2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hd-Ii-NpO">
-                                            <rect key="frame" x="67.333333333333343" y="11" width="326.66666666666663" height="23"/>
+                                            <rect key="frame" x="299" y="11" width="95" height="23"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="95" id="SsB-bo-56S"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                             <color key="textColor" name="Blue"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="leading" secondItem="7dg-2V-exL" secondAttribute="trailing" constant="8" symbolic="YES" id="8zU-c9-rX0"/>
-                                        <constraint firstItem="7dg-2V-exL" firstAttribute="bottom" secondItem="Wbb-UE-YUf" secondAttribute="bottomMargin" id="Foj-nE-1p7"/>
-                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="baseline" secondItem="7dg-2V-exL" secondAttribute="baseline" id="HCj-Jh-6d3"/>
-                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="trailing" secondItem="Wbb-UE-YUf" secondAttribute="trailingMargin" id="R9W-dg-toz"/>
-                                        <constraint firstItem="7dg-2V-exL" firstAttribute="top" secondItem="Wbb-UE-YUf" secondAttribute="topMargin" id="mtd-R3-imd"/>
-                                        <constraint firstItem="7dg-2V-exL" firstAttribute="leading" secondItem="Wbb-UE-YUf" secondAttribute="leadingMargin" id="oAz-CT-Hnm"/>
-                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="top" secondItem="7dg-2V-exL" secondAttribute="top" id="xlU-dg-Wzf"/>
+                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="trailing" secondItem="Wbb-UE-YUf" secondAttribute="trailingMargin" id="3E4-yK-VZ6"/>
+                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="top" secondItem="7dg-2V-exL" secondAttribute="top" id="8hQ-gp-xAJ"/>
+                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="leading" secondItem="7dg-2V-exL" secondAttribute="trailing" constant="8" symbolic="YES" id="CKJ-kj-r6l"/>
+                                        <constraint firstItem="5hd-Ii-NpO" firstAttribute="baseline" secondItem="7dg-2V-exL" secondAttribute="baseline" id="JjP-z0-A6l"/>
+                                        <constraint firstItem="7dg-2V-exL" firstAttribute="top" secondItem="Wbb-UE-YUf" secondAttribute="topMargin" id="Rj1-Rz-kld"/>
+                                        <constraint firstItem="7dg-2V-exL" firstAttribute="leading" secondItem="Wbb-UE-YUf" secondAttribute="leadingMargin" id="TvF-9U-3vS"/>
+                                        <constraint firstItem="7dg-2V-exL" firstAttribute="bottom" secondItem="Wbb-UE-YUf" secondAttribute="bottomMargin" id="cr0-CE-uvi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -223,9 +226,6 @@
         <image name="forward60" width="60" height="60"/>
         <namedColor name="Black">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Blue">
-            <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Blue">
             <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

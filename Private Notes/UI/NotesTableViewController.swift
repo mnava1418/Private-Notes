@@ -76,6 +76,9 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    }
 
     // MARK: - Table view data source
 
@@ -111,33 +114,80 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: indexPath) as! NoteViewCell
+        selectedCell.contentView.backgroundColor = UIColor(named: "Blue")
+        selectedCell.note.textColor = UIColor(named: "White")
+        selectedCell.noteTime.textColor = UIColor(named: "White" )
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let deSelectedCell = tableView.cellForRow(at: indexPath) as! NoteViewCell
+        deSelectedCell.note.textColor = UIColor(named: "Black")
+        deSelectedCell.noteTime.textColor = UIColor(named: "Blue" )
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        if let cell = tableView.cellForRow(at: indexPath) as? NoteViewCell {
+            cell.note.textColor = UIColor(named: "Black")
+            cell.noteTime.textColor = UIColor(named: "Blue" )
+        }
+        
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        for i in 0..<self.tableView.numberOfRows(inSection: 0) {
+            let currentIndexPath: IndexPath = IndexPath(row: i, section: 0)
+            if let cell = tableView.cellForRow(at: currentIndexPath) as? NoteViewCell {
+                cell.note.textColor = UIColor(named: "Black")
+                cell.noteTime.textColor = UIColor(named: "Blue" )
+            }
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.confirmDeleteNote(indexPath: indexPath)
+        }
+        
+        return [deleteAction]
     }
-    */
     
     @objc func addNote() {
         self.action = "addNote"
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
-
     
+    func confirmDeleteNote(indexPath: IndexPath) {
+        let confirmScreen = UIAlertController(title: "Are you sure you want to delete the note?", message: "", preferredStyle: .actionSheet)
+        let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
+            OperationQueue.main.addOperation {
+                self.deleteNote(indexPath: indexPath)
+                self.tableView.reloadData()
+            }
+        }
+        let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        confirmScreen.addAction(deleteAction)
+        confirmScreen.addAction(cancelAction)
+        
+        self.present(confirmScreen, animated: true)
+    }
+    
+    func deleteNote(indexPath: IndexPath) {
+        guard let context = self.managedObjectContext else {
+            return
+        }
+        
+        let note = self.fetchedResultsController.object(at: indexPath)
+        self.managedObjectContext?.delete(note)
+        
+        do {
+            try context.save()
+        } catch {}
+        
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
