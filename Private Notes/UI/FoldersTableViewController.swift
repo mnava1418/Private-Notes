@@ -43,8 +43,8 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         super.viewDidLoad()
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(getNewFolderName))
-        self.navigationItem.rightBarButtonItem = addButton
-        self.navigationItem.leftBarButtonItem = editButtonItem
+        self.navigationItem.rightBarButtonItems = [ addButton, editButtonItem]
+        
         
         if let indexFolder = UserDefaults.standard.value(forKey: "indexFolder") as? Int
         {

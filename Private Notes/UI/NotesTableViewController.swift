@@ -15,6 +15,7 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     var managedObjectContext: NSManagedObjectContext? = nil
     var folderViewController:FoldersTableViewController!
     var action = ""
+    var currentNote:Note? = nil
     
     var _fetchedResultsController: NSFetchedResultsController<Note>? = nil
     var fetchedResultsController: NSFetchedResultsController<Note> {
@@ -119,6 +120,11 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         selectedCell.contentView.backgroundColor = UIColor(named: "Blue")
         selectedCell.note.textColor = UIColor(named: "White")
         selectedCell.noteTime.textColor = UIColor(named: "White" )
+        
+        let note = self.fetchedResultsController.object(at: indexPath)
+        self.action = "updateNote"
+        self.currentNote = note
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -154,6 +160,7 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     
     @objc func addNote() {
         self.action = "addNote"
+        self.currentNote = nil
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
     
@@ -194,7 +201,9 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         super.prepare(for: segue, sender: sender)
         let destination = segue.destination as! NoteDetailsViewController
         destination.managedObjectContext = self.managedObjectContext
+        destination.fetchedResultsController = self.fetchedResultsController
         destination.selectedFolder = self.selectedFolder
         destination.action = self.action
+        destination.currentNote = self.currentNote
     }
 }

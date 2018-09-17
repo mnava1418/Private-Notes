@@ -9,15 +9,21 @@
 import UIKit
 import CoreData
 
-class NoteDetailsViewController: UIViewController {
+class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var noteContent: UITextView!
     var managedObjectContext: NSManagedObjectContext? = nil
+    var fetchedResultsController: NSFetchedResultsController<Note>? = nil
     var selectedFolder:Folder? = nil
     var action = ""
+    var currentNote: Note? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let note = currentNote {
+            self.noteContent.text = note.content
+        }
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
         self.navigationItem.rightBarButtonItem = doneButton
@@ -40,6 +46,10 @@ class NoteDetailsViewController: UIViewController {
             
             if(self.action == "addNote") {
                 self.addNote( content: content.text)
+            } else {
+                if(self.action == "updateNote") {
+                    self.updateNote(content: content.text)
+                }
             }
         }
     }
@@ -47,6 +57,9 @@ class NoteDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     }
     
     func addNote(content: String) {
@@ -62,8 +75,21 @@ class NoteDetailsViewController: UIViewController {
         do {
             try context.save()
         } catch {}
+    }
+    
+    func updateNote(content: String) {
+        guard let context = self.managedObjectContext else {
+            return
+        }
         
-        self.action = "update"
+        if let note = self.currentNote {
+            note.content = content
+            note.date = Date()
+            
+            do {
+                try context.save()
+            } catch {}
+        }
     }
     
     @objc func doneEditing() {
@@ -74,7 +100,20 @@ class NoteDetailsViewController: UIViewController {
             
             if(self.action == "addNote") {
                 self.addNote( content: content.text)
+                let indexPath: IndexPath = IndexPath(row: 0, section: 0)
+                
+                do {
+                    try self.fetchedResultsController?.performFetch()
+                } catch {}
+                
+                self.currentNote = self.fetchedResultsController?.object(at: indexPath)
+                self.action = "updateNote"
+            } else {
+                if(self.action == "updateNote") {
+                    self.updateNote(content: content.text)
+                }
             }
+            noteContent.resignFirstResponder()
         }
     }
 }
