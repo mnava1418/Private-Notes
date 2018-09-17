@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDelegate, UITextViewDelegate {
 
     @IBOutlet weak var noteContent: UITextView!
     var managedObjectContext: NSManagedObjectContext? = nil
@@ -25,15 +25,12 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             self.noteContent.text = note.content
         }
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
-        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
-        
-        self.navigationItem.rightBarButtonItems = [deleteButton, doneButton]
-        
         if(self.action == "addNote")
         {
             noteContent.becomeFirstResponder()
         }else {
+            let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
+            self.navigationItem.rightBarButtonItem = deleteButton
             noteContent.resignFirstResponder()
         }
     }
@@ -62,6 +59,16 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
+        self.navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
+        self.navigationItem.rightBarButtonItem = deleteButton
     }
     
     func addNote(content: String) {
@@ -100,6 +107,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
                 OperationQueue.main.addOperation {
                     self.deleteNote()
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
             let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -121,6 +129,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         do {
             try context.save()
         } catch {}
+        
+        self.action = ""
+        self.currentNote = nil
     }
     
     @objc func doneEditing() {
