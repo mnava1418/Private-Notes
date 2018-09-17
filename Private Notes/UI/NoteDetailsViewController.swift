@@ -26,7 +26,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         }
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
-        self.navigationItem.rightBarButtonItem = doneButton
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
+        
+        self.navigationItem.rightBarButtonItems = [deleteButton, doneButton]
         
         if(self.action == "addNote")
         {
@@ -90,6 +92,35 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                 try context.save()
             } catch {}
         }
+    }
+    
+    @objc func confirmDeleteNote() {
+        if self.currentNote != nil {
+            let confirmScreen = UIAlertController(title: "Are you sure you want to delete the note?", message: "", preferredStyle: .actionSheet)
+            let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
+                OperationQueue.main.addOperation {
+                    self.deleteNote()
+                }
+            }
+            let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            confirmScreen.addAction(deleteAction)
+            confirmScreen.addAction(cancelAction)
+            
+            self.present(confirmScreen, animated: true)
+        }
+    }
+    
+    func deleteNote() {
+        guard let context = self.managedObjectContext else {
+            return
+        }
+        
+        context.delete(self.currentNote!)
+        
+        do {
+            try context.save()
+        } catch {}
     }
     
     @objc func doneEditing() {
