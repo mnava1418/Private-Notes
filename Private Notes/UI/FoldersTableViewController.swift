@@ -133,7 +133,12 @@ class FoldersTableViewController: UITableViewController, NSFetchedResultsControl
         selectedCell.forward.tintColor = UIColor(named: "White")
         
         if(indexPath.row == 0) {
-            return
+            UserDefaults.standard.set(-1, forKey: "indexFolder")
+            UserDefaults.standard.synchronize()
+            
+            self.isFolderSelected = false
+            self.selectedFolder = nil
+            self.performSegue(withIdentifier: "showNotes", sender: nil)
         }else{
             var coreDataIndexPath = indexPath
             coreDataIndexPath.row = indexPath.row - 1

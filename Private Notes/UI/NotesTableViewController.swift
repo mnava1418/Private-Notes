@@ -51,10 +51,13 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         
         if let currentFolder = selectedFolder {
             self.title = currentFolder.name
+            
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+            self.navigationItem.rightBarButtonItems = [ addButton, editButtonItem]
+        } else {
+            self.title = "All Notes"
+            self.navigationItem.rightBarButtonItem = editButtonItem
         }
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-        self.navigationItem.rightBarButtonItems = [ addButton, editButtonItem]
     }
     
     override func viewWillDisappear(_ animated: Bool) {

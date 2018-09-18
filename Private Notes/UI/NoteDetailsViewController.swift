@@ -25,7 +25,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             self.noteContent.text = note.content
         }
         
-        if(self.action == "addNote")
+        if(self.action == "addNote" && self.selectedFolder != nil)
         {
             noteContent.becomeFirstResponder()
         }else {
@@ -43,7 +43,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                 return
             }
             
-            if(self.action == "addNote") {
+            if(self.action == "addNote" && self.selectedFolder != nil) {
                 self.addNote( content: content.text)
             } else {
                 if(self.action == "updateNote") {
@@ -74,6 +74,10 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     func addNote(content: String) {
         guard let context = self.managedObjectContext else {
             return
+        }
+        
+        if self.selectedFolder == nil {
+                return
         }
         
         let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as! Note
@@ -140,7 +144,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                 return
             }
             
-            if(self.action == "addNote") {
+            if(self.action == "addNote" && self.selectedFolder != nil) {
                 self.addNote( content: content.text)
                 let indexPath: IndexPath = IndexPath(row: 0, section: 0)
                 
