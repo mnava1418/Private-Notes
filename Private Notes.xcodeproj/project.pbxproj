@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5002A0122138B21B00356B34 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5002A0112138B21B00356B34 /* FolderManager.swift */; };
 		50153587208F7E0C008C2DA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50153586208F7E0C008C2DA0 /* AppDelegate.swift */; };
 		5015358C208F7E0C008C2DA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5015358A208F7E0C008C2DA0 /* Main.storyboard */; };
 		5015358E208F7E0D008C2DA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5015358D208F7E0D008C2DA0 /* Assets.xcassets */; };
@@ -15,16 +14,13 @@
 		5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */; };
 		5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015359D2090F750008C2DA0 /* FolderViewCell.swift */; };
 		501535A0209149D6008C2DA0 /* MyColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5015359F209149D6008C2DA0 /* MyColors.xcassets */; };
-		501535A32091606A008C2DA0 /* NotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501535A22091606A008C2DA0 /* NotesManager.swift */; };
 		502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */; };
-		5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067CB022120AE5B00DE4640 /* UtilsManager.swift */; };
 		50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */; };
 		50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45716213B82240043C9DD /* NotesTableViewController.swift */; };
 		50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45718213B82D80043C9DD /* NoteViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5002A0112138B21B00356B34 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		50153583208F7E0C008C2DA0 /* Private Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Private Notes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50153586208F7E0C008C2DA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5015358B208F7E0C008C2DA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -34,9 +30,7 @@
 		5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		5015359D2090F750008C2DA0 /* FolderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewCell.swift; sourceTree = "<group>"; };
 		5015359F209149D6008C2DA0 /* MyColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MyColors.xcassets; sourceTree = "<group>"; };
-		501535A22091606A008C2DA0 /* NotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesManager.swift; sourceTree = "<group>"; };
 		502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
-		5067CB022120AE5B00DE4640 /* UtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsManager.swift; sourceTree = "<group>"; };
 		50A0F2C821375876007AAE5F /* privateNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = privateNotes.xcdatamodel; sourceTree = "<group>"; };
 		50C45716213B82240043C9DD /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		50C45718213B82D80043C9DD /* NoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewCell.swift; sourceTree = "<group>"; };
@@ -72,7 +66,6 @@
 		50153585208F7E0C008C2DA0 /* Private Notes */ = {
 			isa = PBXGroup;
 			children = (
-				501535A120916054008C2DA0 /* Model */,
 				50153598208FAE69008C2DA0 /* UI */,
 				50153586208F7E0C008C2DA0 /* AppDelegate.swift */,
 				50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */,
@@ -95,16 +88,6 @@
 				50C45716213B82240043C9DD /* NotesTableViewController.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		501535A120916054008C2DA0 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				501535A22091606A008C2DA0 /* NotesManager.swift */,
-				5067CB022120AE5B00DE4640 /* UtilsManager.swift */,
-				5002A0112138B21B00356B34 /* FolderManager.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,13 +163,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
-				5067CB032120AE5B00DE4640 /* UtilsManager.swift in Sources */,
 				50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */,
 				50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */,
-				501535A32091606A008C2DA0 /* NotesManager.swift in Sources */,
 				50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */,
 				5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */,
-				5002A0122138B21B00356B34 /* FolderManager.swift in Sources */,
 				502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */,
 				50153587208F7E0C008C2DA0 /* AppDelegate.swift in Sources */,
 			);
