@@ -33,6 +33,8 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             self.navigationItem.rightBarButtonItem = deleteButton
             noteContent.resignFirstResponder()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -161,5 +163,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             }
             noteContent.resignFirstResponder()
         }
+    }
+    
+    @objc func willResignActive() {
+        self.doneEditing()
     }
 }
