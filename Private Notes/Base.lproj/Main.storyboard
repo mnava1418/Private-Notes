@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dCP-fc-IPd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QDr-1t-YDK">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -97,6 +97,51 @@
             </objects>
             <point key="canvasLocation" x="1328" y="-373"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="8Ge-MF-08P">
+            <objects>
+                <navigationController id="UgP-Sb-QIk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="1" title="Settings" image="settings25" id="sCl-MH-Fno"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zNe-3b-AZh">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="White"/>
+                        <color key="tintColor" name="Blue"/>
+                        <color key="barTintColor" name="White"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="Black"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dXz-vc-M39" kind="relationship" relationship="rootViewController" id="keN-BU-Qau"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B7c-yL-Ccj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="523" y="441"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="dwC-ur-hx1">
+            <objects>
+                <tableViewController id="dXz-vc-M39" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="W7t-dq-cRn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Gray"/>
+                        <color key="tintColor" name="Blue"/>
+                        <color key="sectionIndexBackgroundColor" name="Gray"/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="dXz-vc-M39" id="sWr-dA-9RN"/>
+                            <outlet property="delegate" destination="dXz-vc-M39" id="xnA-3v-ji3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="never" id="8Tj-ap-1eK"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Zu-0S-fMr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1328" y="440"/>
+        </scene>
         <!--Notes Table View Controller-->
         <scene sceneID="WI9-0y-uoh">
             <objects>
@@ -161,10 +206,37 @@
             </objects>
             <point key="canvasLocation" x="2182.608695652174" y="-373.36956521739131"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="oGt-i9-5sM">
+            <objects>
+                <tabBarController storyboardIdentifier="MasterTabController" id="QDr-1t-YDK" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4dP-al-ugQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Gray"/>
+                        <color key="tintColor" name="Blue"/>
+                        <color key="barTintColor" name="White"/>
+                        <color key="selectedImageTintColor" name="Blue"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dCP-fc-IPd" kind="relationship" relationship="viewControllers" id="oyX-9G-MsX"/>
+                        <segue destination="UgP-Sb-QIk" kind="relationship" relationship="viewControllers" id="o9b-TK-xdf"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NU0-wL-nw6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-506" y="-22"/>
+        </scene>
+        <!--Notes-->
         <scene sceneID="hKc-Zw-sW6">
             <objects>
                 <navigationController storyboardIdentifier="MasterNavigationController" id="dCP-fc-IPd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notes" image="notes" id="q9V-vq-qNf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="XEm-wC-X4J">
                         <rect key="frame" x="0.0" y="20" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -227,11 +299,25 @@
     <resources>
         <image name="folder60" width="60" height="60"/>
         <image name="forward60" width="60" height="60"/>
+        <image name="notes" width="25" height="25"/>
+        <image name="settings25" width="25" height="25"/>
+        <namedColor name="Black">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Black">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Blue">
             <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Blue">
+            <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Gray">
+            <color red="0.92100000381469727" green="0.92100000381469727" blue="0.92100000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

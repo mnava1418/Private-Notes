@@ -126,12 +126,12 @@ class PassCodeViewController: UIViewController {
         if( self.passCode == "1418") {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let foldersNavigationController = storyboard.instantiateViewController(withIdentifier: "MasterNavigationController") as! UINavigationController
-            
+            let tabNavigationController = storyboard.instantiateViewController(withIdentifier: "MasterTabController")  as! UITabBarController
+            let foldersNavigationController = tabNavigationController.viewControllers![0] as! UINavigationController
             let controller = foldersNavigationController.topViewController as! FoldersTableViewController
             controller.managedObjectContext = appDelegate.persistentContainer.viewContext
             
-            appDelegate.window?.rootViewController = foldersNavigationController
+            appDelegate.window?.rootViewController = tabNavigationController
         } else {
             self.passCode = ""
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))

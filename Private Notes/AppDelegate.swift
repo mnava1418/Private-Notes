@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let foldersNavigationController = window?.rootViewController as! UINavigationController
+        let tabNavigationController = window?.rootViewController as! UITabBarController
+        let foldersNavigationController = tabNavigationController.viewControllers![0] as! UINavigationController
     
         //Set Manage Object Cobtext
         let controller = foldersNavigationController.topViewController as! FoldersTableViewController
