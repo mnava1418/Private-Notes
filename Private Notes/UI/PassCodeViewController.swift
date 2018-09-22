@@ -76,6 +76,10 @@ class PassCodeViewController: UIViewController {
     }
     
     @IBAction func pressBtn(_ sender: UIButton) {
+        self.checkCode()
+    }
+    
+    @IBAction func touchBtn(_ sender: UIButton) {
         self.passCode = self.passCode + sender.titleLabel!.text!
         
         switch self.passCode.count {
@@ -90,7 +94,28 @@ class PassCodeViewController: UIViewController {
         default:
             return
         }
-        self.checkCode()
+    }
+    
+    @IBAction func pressCancelBtn(_ sender: UIButton) {
+        
+        if self.passCode.count == 0 {
+            return
+        }
+        
+        self.passCode = String(self.passCode.dropLast(1))
+        
+        switch self.passCode.count {
+        case 0:
+            self.passCode1.image = UIImage(named: "borde60")
+        case 1:
+            self.passCode2.image = UIImage(named: "borde60")
+        case 2:
+            self.passCode3.image = UIImage(named: "borde60")
+        case 3:
+            self.passCode4.image = UIImage(named: "borde60")
+        default:
+            return
+        }
     }
     
     func checkCode() {

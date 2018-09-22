@@ -30,6 +30,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="GgR-Pk-45M"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="L3I-xK-dkw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOV-Zf-zd7">
@@ -44,6 +45,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="H0b-ez-Rtz"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="bFC-4q-Fff"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hp-Qa-DXW">
@@ -58,6 +60,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="GPz-49-0ID"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="4zi-RF-yPJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SlT-67-gvl">
@@ -72,6 +75,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="Zhr-SQ-2PK"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="EOO-gf-5T6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y07-nS-ESn">
@@ -86,6 +90,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="T9X-JM-fka"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="9Df-lo-JZS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPj-BI-KTB">
@@ -100,6 +105,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="sIw-T7-koZ"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="4Lu-s5-6Zu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8B-0F-Met">
@@ -114,6 +120,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="mx8-ao-ppx"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="YAb-ee-V2T"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zW-2c-zcf">
@@ -128,6 +135,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="dzT-w0-s7Q"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="FbP-kc-yPc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FW-ea-adD">
@@ -142,6 +150,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="BSx-K7-2nf"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="krz-7U-Ui2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWP-j0-bCn">
@@ -156,6 +165,7 @@
                                 </state>
                                 <connections>
                                     <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="sFb-D2-8ph"/>
+                                    <action selector="touchBtn:" destination="mEq-1K-eLO" eventType="touchDown" id="25Y-V4-X7S"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBz-6S-HiS">
@@ -196,6 +206,20 @@
                                     <constraint firstAttribute="height" constant="25" id="asc-qs-Xbg"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sou-Nb-Emc">
+                                <rect key="frame" x="260" y="555" width="70" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="LD0-LL-3Ie"/>
+                                    <constraint firstAttribute="width" constant="70" id="nfA-tF-MKJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" name="Blue"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressCancelBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="LhY-Ez-eEh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Gray"/>
                         <constraints>
@@ -204,6 +228,7 @@
                             <constraint firstItem="y07-nS-ESn" firstAttribute="centerY" secondItem="r3p-Kx-Pkf" secondAttribute="centerY" constant="21" id="6R2-WO-kCa"/>
                             <constraint firstItem="yOV-Zf-zd7" firstAttribute="leading" secondItem="Dcg-KK-gOW" secondAttribute="trailing" constant="8" id="CW0-Tc-1t3"/>
                             <constraint firstItem="9FW-ea-adD" firstAttribute="width" secondItem="Dcg-KK-gOW" secondAttribute="width" id="De8-3m-dum"/>
+                            <constraint firstItem="sou-Nb-Emc" firstAttribute="leading" secondItem="aWP-j0-bCn" secondAttribute="trailing" constant="13" id="EsY-oy-hHf"/>
                             <constraint firstItem="r8B-0F-Met" firstAttribute="height" secondItem="Dcg-KK-gOW" secondAttribute="height" id="F4W-dR-SjM"/>
                             <constraint firstItem="SlT-67-gvl" firstAttribute="top" secondItem="Dcg-KK-gOW" secondAttribute="bottom" constant="8" id="FKg-tp-C2F"/>
                             <constraint firstItem="3zW-2c-zcf" firstAttribute="top" secondItem="y07-nS-ESn" secondAttribute="bottom" constant="8" id="H7G-EC-zbR"/>
@@ -226,6 +251,7 @@
                             <constraint firstItem="yOV-Zf-zd7" firstAttribute="top" secondItem="Rmi-f1-Fya" secondAttribute="bottom" constant="69" id="ZgI-R1-NHq"/>
                             <constraint firstItem="yOV-Zf-zd7" firstAttribute="width" secondItem="Dcg-KK-gOW" secondAttribute="width" id="aku-03-r0m"/>
                             <constraint firstItem="aWP-j0-bCn" firstAttribute="height" secondItem="Dcg-KK-gOW" secondAttribute="height" id="dOM-dh-yUV"/>
+                            <constraint firstItem="sou-Nb-Emc" firstAttribute="top" secondItem="9FW-ea-adD" secondAttribute="bottom" constant="28" id="ddF-lv-zjn"/>
                             <constraint firstItem="uPj-BI-KTB" firstAttribute="centerY" secondItem="r3p-Kx-Pkf" secondAttribute="centerY" constant="21" id="dvr-Up-R1d"/>
                             <constraint firstItem="6hp-Qa-DXW" firstAttribute="leading" secondItem="yOV-Zf-zd7" secondAttribute="trailing" constant="8" id="eSv-Cy-BVk"/>
                             <constraint firstItem="aWP-j0-bCn" firstAttribute="centerX" secondItem="r3p-Kx-Pkf" secondAttribute="centerX" id="ecG-cI-xFo"/>
@@ -269,13 +295,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYx-bt-mOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="124" y="156.65024630541873"/>
+            <point key="canvasLocation" x="123.18840579710145" y="156.52173913043478"/>
         </scene>
     </scenes>
     <resources>
         <image name="borde60" width="60" height="60"/>
         <namedColor name="Blue">
             <color red="0.26399999860000001" green="0.49399998779999998" blue="0.70599997039999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Blue">
+            <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Gray">
             <color red="0.92100000381469727" green="0.92100000381469727" blue="0.92100000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
