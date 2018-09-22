@@ -9,6 +9,16 @@
 import UIKit
 import AudioToolbox
 
+extension UIImageView {
+    func shake(){
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.5
+        animation.values = [-15.0, 15.0, -10.0, 10.0, -8.0, 8.0, -5.0, 5.0, 0.0 ]
+        layer.add(animation, forKey: "shake")
+    }
+}
+
 class PassCodeViewController: UIViewController {
 
     var passCode = ""
@@ -22,6 +32,12 @@ class PassCodeViewController: UIViewController {
     @IBOutlet weak var btn8: UIButton!
     @IBOutlet weak var btn9: UIButton!
     @IBOutlet weak var btn0: UIButton!
+    
+    @IBOutlet weak var passCode1: UIImageView!
+    @IBOutlet weak var passCode2: UIImageView!
+    @IBOutlet weak var passCode3: UIImageView!
+    @IBOutlet weak var passCode4: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +77,19 @@ class PassCodeViewController: UIViewController {
     
     @IBAction func pressBtn(_ sender: UIButton) {
         self.passCode = self.passCode + sender.titleLabel!.text!
+        
+        switch self.passCode.count {
+        case 1:
+            self.passCode1.image = UIImage(named: "bordeRelleno60")
+        case 2:
+            self.passCode2.image = UIImage(named: "bordeRelleno60")
+        case 3:
+            self.passCode3.image = UIImage(named: "bordeRelleno60")
+        case 4:
+            self.passCode4.image = UIImage(named: "bordeRelleno60")
+        default:
+            return
+        }
         self.checkCode()
     }
     
@@ -81,6 +110,16 @@ class PassCodeViewController: UIViewController {
         } else {
             self.passCode = ""
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            self.passCode1.shake()
+            self.passCode2.shake()
+            self.passCode3.shake()
+            self.passCode4.shake()
+            
+            self.passCode1.image = UIImage(named: "borde60")
+            self.passCode2.image = UIImage(named: "borde60")
+            self.passCode3.image = UIImage(named: "borde60")
+            self.passCode4.image = UIImage(named: "borde60")
         }
     }
     
