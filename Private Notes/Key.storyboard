@@ -37,6 +37,9 @@
                                 <state key="normal" title="1" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="GgR-Pk-45M"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOV-Zf-zd7">
                                 <rect key="frame" x="354" y="464" width="60" height="60"/>
@@ -44,6 +47,9 @@
                                 <state key="normal" title="2" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="H0b-ez-Rtz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hp-Qa-DXW">
                                 <rect key="frame" x="439" y="464" width="60" height="60"/>
@@ -51,6 +57,9 @@
                                 <state key="normal" title="3" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="GPz-49-0ID"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SlT-67-gvl">
                                 <rect key="frame" x="269" y="549" width="60" height="60"/>
@@ -58,6 +67,9 @@
                                 <state key="normal" title="4" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="Zhr-SQ-2PK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y07-nS-ESn">
                                 <rect key="frame" x="354" y="549" width="60" height="60"/>
@@ -65,6 +77,9 @@
                                 <state key="normal" title="5" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="T9X-JM-fka"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPj-BI-KTB">
                                 <rect key="frame" x="439" y="549" width="60" height="60"/>
@@ -72,6 +87,9 @@
                                 <state key="normal" title="6" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="sIw-T7-koZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8B-0F-Met">
                                 <rect key="frame" x="269" y="634" width="60" height="60"/>
@@ -79,6 +97,9 @@
                                 <state key="normal" title="7" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="mx8-ao-ppx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zW-2c-zcf">
                                 <rect key="frame" x="354" y="634" width="60" height="60"/>
@@ -86,6 +107,9 @@
                                 <state key="normal" title="8" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="dzT-w0-s7Q"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FW-ea-adD">
                                 <rect key="frame" x="439" y="634" width="60" height="60"/>
@@ -93,6 +117,9 @@
                                 <state key="normal" title="9" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="BSx-K7-2nf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWP-j0-bCn">
                                 <rect key="frame" x="354" y="709" width="60" height="60"/>
@@ -100,6 +127,9 @@
                                 <state key="normal" title="0" backgroundImage="borde60">
                                     <color key="titleColor" name="Blue"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressBtn:" destination="mEq-1K-eLO" eventType="touchUpInside" id="sFb-D2-8ph"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="Gray"/>

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class PassCodeViewController: UIViewController {
 
+    var passCode = ""
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var btn4: UIButton!
@@ -55,6 +57,31 @@ class PassCodeViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func pressBtn(_ sender: UIButton) {
+        self.passCode = self.passCode + sender.titleLabel!.text!
+        self.checkCode()
+    }
+    
+    func checkCode() {
+        if self.passCode.count < 4 {
+            return
+        }
+        
+        if( self.passCode == "1418") {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let foldersNavigationController = storyboard.instantiateViewController(withIdentifier: "MasterNavigationController") as! UINavigationController
+            
+            let controller = foldersNavigationController.topViewController as! FoldersTableViewController
+            controller.managedObjectContext = appDelegate.persistentContainer.viewContext
+            
+            appDelegate.window?.rootViewController = foldersNavigationController
+        } else {
+            self.passCode = ""
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
     }
     
     /*
