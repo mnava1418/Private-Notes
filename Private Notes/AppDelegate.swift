@@ -9,11 +9,22 @@
 import UIKit
 import CoreData
 
+struct AppUtility {
+    
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+        
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = orientation
+        }
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
+    var orientationLock = UIInterfaceOrientationMask.all
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let foldersNavigationController = window?.rootViewController as! UINavigationController
@@ -22,7 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let controller = foldersNavigationController.topViewController as! FoldersTableViewController
         controller.managedObjectContext = self.persistentContainer.viewContext
 
+        self.askPassCode()
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -80,6 +97,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func askPassCode() {
+        let storyboard = UIStoryboard(name: "Key", bundle: nil)
+        let passCodePage = storyboard.instantiateViewController(withIdentifier: "passCodeView") as! PassCodeViewController
+        self.window?.rootViewController = passCodePage
     }
 }
 

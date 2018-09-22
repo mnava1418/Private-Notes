@@ -14,6 +14,8 @@
 		5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */; };
 		5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015359D2090F750008C2DA0 /* FolderViewCell.swift */; };
 		501535A0209149D6008C2DA0 /* MyColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5015359F209149D6008C2DA0 /* MyColors.xcassets */; };
+		502032BC215589BB003957D4 /* Key.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502032BB215589BB003957D4 /* Key.storyboard */; };
+		502032BE21558CCD003957D4 /* PassCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502032BD21558CCD003957D4 /* PassCodeViewController.swift */; };
 		502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */; };
 		50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */; };
 		50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45716213B82240043C9DD /* NotesTableViewController.swift */; };
@@ -30,6 +32,8 @@
 		5015359B2090EA54008C2DA0 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableViewController.swift; sourceTree = "<group>"; };
 		5015359D2090F750008C2DA0 /* FolderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewCell.swift; sourceTree = "<group>"; };
 		5015359F209149D6008C2DA0 /* MyColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MyColors.xcassets; sourceTree = "<group>"; };
+		502032BB215589BB003957D4 /* Key.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Key.storyboard; sourceTree = "<group>"; };
+		502032BD21558CCD003957D4 /* PassCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassCodeViewController.swift; sourceTree = "<group>"; };
 		502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		50A0F2C821375876007AAE5F /* privateNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = privateNotes.xcdatamodel; sourceTree = "<group>"; };
 		50C45716213B82240043C9DD /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 				50153586208F7E0C008C2DA0 /* AppDelegate.swift */,
 				50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */,
 				5015358A208F7E0C008C2DA0 /* Main.storyboard */,
+				502032BB215589BB003957D4 /* Key.storyboard */,
 				5015358D208F7E0D008C2DA0 /* Assets.xcassets */,
 				5015358F208F7E0D008C2DA0 /* LaunchScreen.storyboard */,
 				50153592208F7E0D008C2DA0 /* Info.plist */,
@@ -86,6 +91,7 @@
 				50C45718213B82D80043C9DD /* NoteViewCell.swift */,
 				502CB2DC209228FB00755EE0 /* NoteDetailsViewController.swift */,
 				50C45716213B82240043C9DD /* NotesTableViewController.swift */,
+				502032BD21558CCD003957D4 /* PassCodeViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -151,6 +157,7 @@
 				50153591208F7E0D008C2DA0 /* LaunchScreen.storyboard in Resources */,
 				501535A0209149D6008C2DA0 /* MyColors.xcassets in Resources */,
 				5015358E208F7E0D008C2DA0 /* Assets.xcassets in Resources */,
+				502032BC215589BB003957D4 /* Key.storyboard in Resources */,
 				5015358C208F7E0C008C2DA0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				502032BE21558CCD003957D4 /* PassCodeViewController.swift in Sources */,
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
 				50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */,
 				50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */,
