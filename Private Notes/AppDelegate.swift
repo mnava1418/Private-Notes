@@ -103,17 +103,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func askPassCode() {
         
-        if let blockActive = UserDefaults.standard.value(forKey: "blockActive") as? Bool{
-            if !blockActive {
-                return
-            }
-        } else {
-            return
+        var blockActive = false
+        var passCode = ""
+        
+        if let tempBlockActive = UserDefaults.standard.value(forKey: "blockActive") as? Bool{
+            blockActive = tempBlockActive
         }
         
-        let storyboard = UIStoryboard(name: "Key", bundle: nil)
-        let passCodePage = storyboard.instantiateViewController(withIdentifier: "passCodeView") as! PassCodeViewController
-        self.window?.rootViewController = passCodePage
+        if let tempPassCode = UserDefaults.standard.value(forKey: "passCode") as? String{
+            passCode = tempPassCode
+        }
+        
+        if blockActive && passCode != "" {
+            let storyboard = UIStoryboard(name: "Key", bundle: nil)
+            let passCodePage = storyboard.instantiateViewController(withIdentifier: "passCodeView") as! PassCodeViewController
+            
+            passCodePage.action = KeyUtils.Actions.access
+            self.window?.rootViewController = passCodePage
+        }
     }
 }
 

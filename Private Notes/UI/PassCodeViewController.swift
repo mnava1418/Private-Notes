@@ -22,6 +22,10 @@ extension UIImageView {
 class PassCodeViewController: UIViewController {
 
     var passCode = ""
+    var newPassCode = ""
+    var action:KeyUtils.Actions = KeyUtils.Actions.access
+    
+    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var btn4: UIButton!
@@ -41,8 +45,19 @@ class PassCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if action == KeyUtils.Actions.confirm {
+            label.text = "Confirm Passcode"
+        }else {
+            if action == KeyUtils.Actions.new{
+                label.text = "Enter New Passcode"
+            }else {
+                label.text = "Enter Passcode"
+            }
+    
+            newPassCode = ""
+        }
 
-        // AppUtility.lockOrientation(.all)
         AppUtility.lockOrientation(.portrait)
         self.btn1.setBackgroundImage(UIImage(named: "bordeRelleno60")!, for: .highlighted)
         self.btn1.setTitleColor(UIColor(named: "White"), for: .highlighted)
@@ -98,8 +113,12 @@ class PassCodeViewController: UIViewController {
     
     @IBAction func pressCancelBtn(_ sender: UIButton) {
         
-        if self.passCode.count == 0 {
+        if self.passCode.count == 0 && self.action == KeyUtils.Actions.access {
             return
+        }
+        
+        if self.passCode.count == 0 && self.action != KeyUtils.Actions.access {
+            self.enterApp()
         }
         
         self.passCode = String(self.passCode.dropLast(1))
@@ -123,15 +142,45 @@ class PassCodeViewController: UIViewController {
             return
         }
         
-        if( self.passCode == "1418") {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let tabNavigationController = storyboard.instantiateViewController(withIdentifier: "MasterTabController")  as! UITabBarController
-            let foldersNavigationController = tabNavigationController.viewControllers![0] as! UINavigationController
-            let controller = foldersNavigationController.topViewController as! FoldersTableViewController
-            controller.managedObjectContext = appDelegate.persistentContainer.viewContext
-            
-            appDelegate.window?.rootViewController = tabNavigationController
+        switch self.action {
+        case KeyUtils.Actions.access:
+            self.validateCode()
+        case KeyUtils.Actions.new:
+            self.setNewCode()
+        case KeyUtils.Actions.confirm:
+            self.confirmPassCode()
+        case KeyUtils.Actions.delete:
+            self.deleteCode()
+        }
+    }
+    
+    func enterApp() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let tabNavigationController = storyboard.instantiateViewController(withIdentifier: "MasterTabController")  as! UITabBarController
+        let foldersNavigationController = tabNavigationController.viewControllers![0] as! UINavigationController
+        let controller = foldersNavigationController.topViewController as! FoldersTableViewController
+        controller.managedObjectContext = appDelegate.persistentContainer.viewContext
+        
+        if self.action == KeyUtils.Actions.access{
+            tabNavigationController.selectedIndex = 0
+        } else {
+            tabNavigationController.selectedIndex = 1
+        }
+        
+        appDelegate.window?.rootViewController = tabNavigationController
+    }
+    
+    func validateCode() {
+        
+        var currPassCode = ""
+        
+        if let tempPassCode = UserDefaults.standard.value(forKey: "passCode") as? String{
+            currPassCode = tempPassCode
+        }
+        
+        if( currPassCode != "" && self.passCode == currPassCode) {
+            self.enterApp()
         } else {
             self.passCode = ""
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -148,14 +197,69 @@ class PassCodeViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setNewCode() {
+        self.newPassCode = self.passCode
+        self.passCode = ""
+        self.action = KeyUtils.Actions.confirm
+        
+        self.passCode1.image = UIImage(named: "borde60")
+        self.passCode2.image = UIImage(named: "borde60")
+        self.passCode3.image = UIImage(named: "borde60")
+        self.passCode4.image = UIImage(named: "borde60")
+        
+        self.viewDidLoad()
     }
-    */
-
+    
+    func confirmPassCode() {
+        if self.newPassCode == self.passCode {
+            UserDefaults.standard.set(self.newPassCode, forKey: "passCode")
+            UserDefaults.standard.set(true, forKey: "blockActive")
+            self.enterApp()
+        } else {
+            self.passCode = ""
+            self.newPassCode = ""
+            self.action = KeyUtils.Actions.new
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            self.passCode1.shake()
+            self.passCode2.shake()
+            self.passCode3.shake()
+            self.passCode4.shake()
+            
+            self.passCode1.image = UIImage(named: "borde60")
+            self.passCode2.image = UIImage(named: "borde60")
+            self.passCode3.image = UIImage(named: "borde60")
+            self.passCode4.image = UIImage(named: "borde60")
+            
+            self.viewDidLoad()
+        }
+    }
+    
+    func deleteCode() {
+        var currPassCode = ""
+        
+        if let tempPassCode = UserDefaults.standard.value(forKey: "passCode") as? String{
+            currPassCode = tempPassCode
+        }
+        
+        if( currPassCode != "" && self.passCode == currPassCode) {
+            UserDefaults.standard.set("", forKey: "passCode")
+            UserDefaults.standard.set(false, forKey: "blockActive")
+            
+            self.enterApp()
+        } else {
+            self.passCode = ""
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            self.passCode1.shake()
+            self.passCode2.shake()
+            self.passCode3.shake()
+            self.passCode4.shake()
+            
+            self.passCode1.image = UIImage(named: "borde60")
+            self.passCode2.image = UIImage(named: "borde60")
+            self.passCode3.image = UIImage(named: "borde60")
+            self.passCode4.image = UIImage(named: "borde60")
+        }
+    }
 }

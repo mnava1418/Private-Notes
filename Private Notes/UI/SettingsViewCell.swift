@@ -22,14 +22,22 @@ class SettingsViewCell: UITableViewCell {
     }
 
     @IBAction func didSwitchSelected(_ sender: UISwitch) {
-        var key = "blockActive"
         
-        if self.isTouchId {
-                key = "touchIDActive"
+        if !self.isTouchId {
+            let storyboard = UIStoryboard(name: "Key", bundle: nil)
+            let passCodePage = storyboard.instantiateViewController(withIdentifier: "passCodeView") as! PassCodeViewController
+            
+            if sender.isOn {
+                passCodePage.action = KeyUtils.Actions.new
+            } else {
+                passCodePage.action = KeyUtils.Actions.delete
+            }
+            
+            self.window?.rootViewController = passCodePage
+        } else {
+            UserDefaults.standard.set(sender.isOn, forKey: "touchIDActive")
+            self.tableView!.tableView.reloadData()
         }
-        
-        UserDefaults.standard.set(sender.isOn, forKey: key)
-        self.tableView!.tableView.reloadData()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

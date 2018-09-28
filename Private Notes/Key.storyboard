@@ -169,9 +169,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBz-6S-HiS">
-                                <rect key="frame" x="112" y="139" width="190" height="30"/>
+                                <rect key="frame" x="20" y="139" width="374" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="190" id="kCw-iU-ceX"/>
+                                    <constraint firstAttribute="width" constant="374" id="kCw-iU-ceX"/>
                                     <constraint firstAttribute="height" constant="30" id="mDz-ZH-NyF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
@@ -287,6 +287,7 @@
                         <outlet property="btn7" destination="r8B-0F-Met" id="RvG-PW-7yr"/>
                         <outlet property="btn8" destination="3zW-2c-zcf" id="mtX-Ec-gmG"/>
                         <outlet property="btn9" destination="9FW-ea-adD" id="yEp-T6-k2g"/>
+                        <outlet property="label" destination="aBz-6S-HiS" id="mHz-5G-PZL"/>
                         <outlet property="passCode1" destination="hHj-Mz-Poh" id="hcZ-jI-YsR"/>
                         <outlet property="passCode2" destination="hHq-Se-Cg3" id="ZDo-Of-Acy"/>
                         <outlet property="passCode3" destination="Rmi-f1-Fya" id="SZg-JJ-hM7"/>
@@ -295,16 +296,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYx-bt-mOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="123.18840579710145" y="156.52173913043478"/>
+            <point key="canvasLocation" x="123.18840579710145" y="155.70652173913044"/>
         </scene>
     </scenes>
     <resources>
         <image name="borde60" width="60" height="60"/>
         <namedColor name="Blue">
             <color red="0.26399999860000001" green="0.49399998779999998" blue="0.70599997039999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="Blue">
-            <color red="0.26399999856948853" green="0.49399998784065247" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Gray">
             <color red="0.92100000381469727" green="0.92100000381469727" blue="0.92100000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
