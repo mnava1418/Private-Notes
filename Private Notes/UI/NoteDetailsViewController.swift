@@ -39,20 +39,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if let content = noteContent {
-            if(content.text.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
-                return
-            }
-            
-            if(self.action == "addNote" && self.selectedFolder != nil) {
-                self.addNote( content: content.text)
-            } else {
-                if(self.action == "updateNote") {
-                    self.updateNote(content: content.text)
-                }
-            }
-        }
+        self.doneEditing()
     }
 
     override func didReceiveMemoryWarning() {
