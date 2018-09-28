@@ -45,7 +45,18 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "In order to enable Touch ID, passcode lock must be active."
+        
+        var blockActive = false
+        
+        if let currBlockActive = UserDefaults.standard.value(forKey: "blockActive") as? Bool{
+            blockActive = currBlockActive
+        }
+        
+        if !blockActive {
+            return "In order to enable Touch ID, passcode lock must be active."
+        } else {
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
