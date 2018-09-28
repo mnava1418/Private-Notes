@@ -102,6 +102,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func askPassCode() {
+        
+        if let blockActive = UserDefaults.standard.value(forKey: "blockActive") as? Bool{
+            if !blockActive {
+                return
+            }
+        } else {
+            return
+        }
+        
         let storyboard = UIStoryboard(name: "Key", bundle: nil)
         let passCodePage = storyboard.instantiateViewController(withIdentifier: "passCodeView") as! PassCodeViewController
         self.window?.rootViewController = passCodePage
