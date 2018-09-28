@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import LocalAuthentication
 
 extension UIImageView {
     func shake(){
@@ -53,6 +54,10 @@ class PassCodeViewController: UIViewController {
                 label.text = "Enter New Passcode"
             }else {
                 label.text = "Enter Passcode"
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
             }
     
             newPassCode = ""
@@ -82,9 +87,10 @@ class PassCodeViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         AppUtility.lockOrientation(.all)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -260,6 +266,37 @@ class PassCodeViewController: UIViewController {
             self.passCode2.image = UIImage(named: "borde60")
             self.passCode3.image = UIImage(named: "borde60")
             self.passCode4.image = UIImage(named: "borde60")
+        }
+    }
+    
+    func touchId() {
+        let context = LAContext()
+        let textId = "Unlock Private Notes"
+        var error:NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: textId) { (success, error) in
+                
+                if success {
+                    OperationQueue.main.addOperation {
+                        self.enterApp()
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func didBecomeActive() {
+        if(self.action == KeyUtils.Actions.access || self.action == KeyUtils.Actions.delete){
+            var touchIDActive = false
+            
+            if let currTouchIDActive = UserDefaults.standard.value(forKey: "touchIDActive") as? Bool{
+                touchIDActive = currTouchIDActive
+             }
+            
+             if touchIDActive {
+                self.touchId()
+             }
         }
     }
 }
