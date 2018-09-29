@@ -287,7 +287,7 @@ class PassCodeViewController: UIViewController {
     }
     
     @objc func didBecomeActive() {
-        if(self.action == KeyUtils.Actions.access || self.action == KeyUtils.Actions.delete){
+        if(self.action == KeyUtils.Actions.access){
             var touchIDActive = false
             
             if let currTouchIDActive = UserDefaults.standard.value(forKey: "touchIDActive") as? Bool{
