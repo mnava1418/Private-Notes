@@ -16,6 +16,7 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     var folderViewController:FoldersTableViewController!
     var action = ""
     var currentNote:Note? = nil
+    var notesToDelete:[IndexPath] = []
     
     var _fetchedResultsController: NSFetchedResultsController<Note>? = nil
     var fetchedResultsController: NSFetchedResultsController<Note> {
@@ -49,14 +50,17 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editNotes))
+        
         if let currentFolder = selectedFolder {
             self.title = currentFolder.name
             
             let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-            self.navigationItem.rightBarButtonItems = [ addButton, editButtonItem]
+            
+            self.navigationItem.rightBarButtonItems = [addButton, editButton]
         } else {
             self.title = "All Notes"
-            self.navigationItem.rightBarButtonItem = editButtonItem
+            self.navigationItem.rightBarButtonItems = [editButton]
         }
     }
     
@@ -119,21 +123,29 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath) as! NoteViewCell
-        selectedCell.contentView.backgroundColor = UIColor(named: "Blue")
-        selectedCell.note.textColor = UIColor(named: "White")
-        selectedCell.noteTime.textColor = UIColor(named: "White" )
-        
-        let note = self.fetchedResultsController.object(at: indexPath)
-        self.action = "updateNote"
-        self.currentNote = note
-        self.performSegue(withIdentifier: "showDetail", sender: nil)
+        if(tableView.isEditing) {
+            self.notesToDelete.append(indexPath)
+        } else {
+            let selectedCell = tableView.cellForRow(at: indexPath) as! NoteViewCell
+            selectedCell.contentView.backgroundColor = UIColor(named: "Blue")
+            selectedCell.note.textColor = UIColor(named: "White")
+            selectedCell.noteTime.textColor = UIColor(named: "White" )
+            
+            let note = self.fetchedResultsController.object(at: indexPath)
+            self.action = "updateNote"
+            self.currentNote = note
+            self.performSegue(withIdentifier: "showDetail", sender: nil)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deSelectedCell = tableView.cellForRow(at: indexPath) as! NoteViewCell
         deSelectedCell.note.textColor = UIColor(named: "Black")
         deSelectedCell.noteTime.textColor = UIColor(named: "Blue" )
+        
+        if(tableView.isEditing) {
+            self.notesToDelete.remove(at: self.notesToDelete.index(of: indexPath)!)
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -155,23 +167,78 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.confirmDeleteNote(indexPath: indexPath)
+            self.confirmDeleteNote(indexPaths: [indexPath])
         }
         
         return [deleteAction]
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.init(rawValue: 3)!
+    }
+    
     @objc func addNote() {
+        if tableView.isEditing {
+            return
+        }
+        
         self.action = "addNote"
         self.currentNote = nil
         self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
     
-    func confirmDeleteNote(indexPath: IndexPath) {
-        let confirmScreen = UIAlertController(title: "Are you sure you want to delete the note?", message: "", preferredStyle: .actionSheet)
+    @objc func editNotes() {
+        print("vamos a editar")
+        
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        var editButton:UIBarButtonItem?
+        
+        if tableView.isEditing{
+            editButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(editNotes))
+        } else {
+            editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editNotes))
+        }
+        
+        if self.selectedFolder == nil {
+            self.navigationItem.rightBarButtonItems = [editButton!]
+        } else {
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+            self.navigationItem.rightBarButtonItems = [addButton, editButton!]
+        }
+        
+        if tableView.isEditing {
+            let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEditing))
+            self.navigationItem.leftBarButtonItem = cancelButton
+        } else{
+            self.navigationItem.leftBarButtonItems = nil
+            
+            if self.notesToDelete.count > 0 {
+                self.confirmDeleteNote(indexPaths: self.notesToDelete)
+                self.notesToDelete.removeAll()
+            }
+        }
+    }
+    
+    @objc func cancelEditing() {
+        tableView.setEditing(false, animated: true)
+        self.notesToDelete.removeAll()
+        self.navigationItem.leftBarButtonItems = nil
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editNotes))
+        
+        if self.selectedFolder == nil {
+            self.navigationItem.rightBarButtonItems = [editButton]
+        } else {
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+            self.navigationItem.rightBarButtonItems = [addButton, editButton]
+        }
+    }
+    
+    func confirmDeleteNote(indexPaths: [IndexPath]) {
+        let confirmScreen = UIAlertController(title: "Are you sure you want to delete \(String(indexPaths.count)) note(s)", message: "", preferredStyle: .actionSheet)
         let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
             OperationQueue.main.addOperation {
-                self.deleteNote(indexPath: indexPath)
+                self.deleteNote(indexPaths: indexPaths)
                 self.tableView.reloadData()
             }
         }
@@ -183,19 +250,21 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         self.present(confirmScreen, animated: true)
     }
     
-    func deleteNote(indexPath: IndexPath) {
-        guard let context = self.managedObjectContext else {
-            return
+    func deleteNote(indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            guard let context = self.managedObjectContext else {
+                return
+            }
+            
+            let note = self.fetchedResultsController.object(at: indexPath)
+            self.managedObjectContext?.delete(note)
+            
+            do {
+                try context.save()
+            } catch {}
         }
         
-        let note = self.fetchedResultsController.object(at: indexPath)
-        self.managedObjectContext?.delete(note)
-        
-        do {
-            try context.save()
-        } catch {}
-        
-        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        self.tableView.deleteRows(at: indexPaths, with: .fade)
     }
 
     // MARK: - Navigation
