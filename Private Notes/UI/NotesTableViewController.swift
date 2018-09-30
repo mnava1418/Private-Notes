@@ -239,7 +239,6 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         let deleteAction:UIAlertAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
             OperationQueue.main.addOperation {
                 self.deleteNote(indexPaths: indexPaths)
-                self.tableView.reloadData()
             }
         }
         let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -251,18 +250,18 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     func deleteNote(indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            guard let context = self.managedObjectContext else {
-                return
-            }
-            
-            let note = self.fetchedResultsController.object(at: indexPath)
-            self.managedObjectContext?.delete(note)
-            
-            do {
-                try context.save()
-            } catch {}
+        guard let context = self.managedObjectContext else {
+            return
         }
+        
+        for indexPath in indexPaths {
+            let note = self.fetchedResultsController.object(at: indexPath)
+            context.delete(note)
+        }
+        
+        do {
+            try context.save()
+        } catch {}
         
         self.tableView.deleteRows(at: indexPaths, with: .fade)
     }
