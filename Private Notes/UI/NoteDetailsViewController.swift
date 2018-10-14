@@ -30,7 +30,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             noteContent.becomeFirstResponder()
         }else {
             let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
-            self.navigationItem.rightBarButtonItem = deleteButton
+            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
+            
+            self.navigationItem.rightBarButtonItems = [shareButton,deleteButton]
             noteContent.resignFirstResponder()
         }
         
@@ -57,7 +59,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     
     func textViewDidEndEditing(_ textView: UITextView) {
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
-        self.navigationItem.rightBarButtonItem = deleteButton
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
+        
+        self.navigationItem.rightBarButtonItems = [shareButton,deleteButton]
     }
     
     func addNote(content: String) {
@@ -149,6 +153,18 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                 }
             }
             noteContent.resignFirstResponder()
+        }
+    }
+    
+    @objc func shareNote() {
+        if let currentText = self.noteContent.text {
+            if currentText.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                return
+            }
+            
+            let contentToShare:[String] = [currentText]
+            let shareVC = UIActivityViewController(activityItems: contentToShare, applicationActivities: nil)
+            self.present(shareVC, animated: true)
         }
     }
     
