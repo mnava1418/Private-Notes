@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NotesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class NotesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
     var selectedFolder:Folder? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
@@ -188,8 +188,6 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     @objc func editNotes() {
-        print("vamos a editar")
-        
         tableView.setEditing(!tableView.isEditing, animated: true)
         var editButton:UIBarButtonItem?
         
@@ -264,6 +262,68 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         } catch {}
         
         self.tableView.deleteRows(at: indexPaths, with: .fade)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        var predicate: NSPredicate!
+        searchBar.text = ""
+        if let currentFolder = self.selectedFolder {
+            predicate = NSPredicate(format: "folder == %@", currentFolder)
+        } else{
+            predicate = nil
+        }
+        
+        self.fetchedResultsController.fetchRequest.predicate = predicate
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {}
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        var predicate: NSPredicate!
+        searchBar.text = ""
+        if let currentFolder = self.selectedFolder {
+            predicate = NSPredicate(format: "folder == %@", currentFolder)
+        } else{
+            predicate = nil
+        }
+        
+        self.fetchedResultsController.fetchRequest.predicate = predicate
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {}
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        var predicate: NSPredicate!
+        
+        let finalSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if finalSearchText == ""{
+            if let currentFolder = self.selectedFolder {
+                predicate = NSPredicate(format: "folder == %@", currentFolder)
+            } else{
+                predicate = nil
+            }
+        } else{
+            if let currentFolder = self.selectedFolder {
+                predicate = NSPredicate(format: "folder == %@ AND content CONTAINS[c] %@", currentFolder, finalSearchText)
+            } else{
+                predicate = NSPredicate(format: "content CONTAINS[c] %@", finalSearchText)
+            }
+        }
+        
+        self.fetchedResultsController.fetchRequest.predicate = predicate
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {}
     }
 
     // MARK: - Navigation
