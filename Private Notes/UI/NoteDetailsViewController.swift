@@ -32,7 +32,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
             let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
             
-            self.navigationItem.rightBarButtonItems = [shareButton,deleteButton]
+            self.navigationItem.setRightBarButtonItems([shareButton,deleteButton], animated: true)
             noteContent.resignFirstResponder()
         }
         
@@ -54,14 +54,14 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
-        self.navigationItem.rightBarButtonItem = doneButton
+        self.navigationItem.setRightBarButtonItems([doneButton], animated: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
         let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
         
-        self.navigationItem.rightBarButtonItems = [shareButton,deleteButton]
+        self.navigationItem.setRightBarButtonItems([shareButton,deleteButton], animated: true)
     }
     
     func addNote(content: String) {
