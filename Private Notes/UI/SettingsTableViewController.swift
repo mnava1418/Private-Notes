@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
-    let titles = ["Passcode Lock", "Touch ID"]
+    let titles = ["Passcode Lock", "Touch/Face ID"]
     let images = ["block60", "touch60"]
     
     override func viewDidLoad() {
