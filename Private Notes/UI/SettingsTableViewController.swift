@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class SettingsTableViewController: UITableViewController {
 
-    let titles = ["Passcode Lock", "Touch/Face ID"]
-    let images = ["block60", "touch60"]
+    var biometryEnable = false
+    var biometryType:LABiometryType = .none
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let context = LAContext()
+        var error:NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            self.biometryEnable = true
+            self.biometryType = context.biometryType
+        } else {
+            self.biometryEnable = false
+            self.biometryType = LABiometryType.none
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +43,12 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return titles.count
+        
+        if self.biometryEnable {
+            return 2
+        } else {
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -46,8 +63,12 @@ class SettingsTableViewController: UITableViewController {
             blockActive = currBlockActive
         }
         
-        if !blockActive {
-            return "In order to enable Touch ID, passcode lock must be active."
+        if !blockActive && self.biometryEnable {
+            if self.biometryType == LABiometryType.touchID {
+                return "In order to enable Touch ID, passcode lock must be active."
+            } else {
+                return "In order to enable Face ID, passcode lock must be active."
+            }
         } else {
             return ""
         }
@@ -56,10 +77,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsViewCell
 
-        cell.title.text = titles[indexPath.row]
-        cell.icon.image = UIImage(named: images[indexPath.row])
         cell.tableView = self
-        
         var blockActive = false
         
         if let currBlockActive = UserDefaults.standard.value(forKey: "blockActive") as? Bool{
@@ -67,6 +85,8 @@ class SettingsTableViewController: UITableViewController {
         }
         
         if indexPath.row == 0 {
+            cell.title.text = "Passcode Lock"
+            cell.icon.image = UIImage(named: "block60")
             cell.isTouchId = false
             cell.switch.isOn = blockActive
         } else {
@@ -76,11 +96,18 @@ class SettingsTableViewController: UITableViewController {
                 touchIDActive = currTouchIDActive
             }
             
+            if( self.biometryType == LABiometryType.faceID){
+                cell.title.text = "Face ID"
+                cell.icon.image = UIImage(named: "face60")
+            } else {
+                cell.title.text = "Touch ID"
+                cell.icon.image = UIImage(named: "touch60")
+            }
+            
             cell.isTouchId = true
             cell.switch.isOn = touchIDActive
             cell.title.isEnabled = blockActive
             cell.switch.isEnabled = blockActive
-            
         }
         
         return cell

@@ -97,27 +97,25 @@
             <point key="canvasLocation" x="1328" y="-373"/>
         </scene>
         <!--Settings-->
-        <scene sceneID="8Ge-MF-08P">
+        <scene sceneID="SzV-HZ-nv5">
             <objects>
-                <navigationController id="UgP-Sb-QIk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="Settings" image="settings25" id="sCl-MH-Fno"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zNe-3b-AZh">
+                <navigationController id="IDB-Ig-bUi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings25" id="ADg-fU-LvV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yx7-Ot-dbc">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="White"/>
-                        <color key="tintColor" name="Blue"/>
-                        <color key="barTintColor" name="White"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" name="Black"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="dXz-vc-M39" kind="relationship" relationship="rootViewController" id="keN-BU-Qau"/>
+                        <segue destination="dXz-vc-M39" kind="relationship" relationship="rootViewController" id="lOT-aL-Biv"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B7c-yL-Ccj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XOe-Oj-HG9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="523" y="441"/>
+            <point key="canvasLocation" x="523" y="438"/>
         </scene>
         <!--Settings-->
         <scene sceneID="dwC-ur-hx1">
@@ -186,7 +184,7 @@
                             <outlet property="delegate" destination="dXz-vc-M39" id="xnA-3v-ji3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="never" id="8Tj-ap-1eK"/>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="8Tj-ap-1eK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Zu-0S-fMr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -293,7 +291,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="dCP-fc-IPd" kind="relationship" relationship="viewControllers" id="oyX-9G-MsX"/>
-                        <segue destination="UgP-Sb-QIk" kind="relationship" relationship="viewControllers" id="o9b-TK-xdf"/>
+                        <segue destination="IDB-Ig-bUi" kind="relationship" relationship="viewControllers" id="2XL-ar-h7P"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NU0-wL-nw6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -310,7 +308,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" name="Blue"/>
-                        <color key="barTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
@@ -370,9 +367,6 @@
         <image name="forward60" width="60" height="60"/>
         <image name="notes" width="25" height="25"/>
         <image name="settings25" width="25" height="25"/>
-        <namedColor name="Black">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Black">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
