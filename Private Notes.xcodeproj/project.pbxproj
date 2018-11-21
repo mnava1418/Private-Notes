@@ -23,6 +23,8 @@
 		50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50A0F2C721375876007AAE5F /* privateNotes.xcdatamodeld */; };
 		50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45716213B82240043C9DD /* NotesTableViewController.swift */; };
 		50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C45718213B82D80043C9DD /* NoteViewCell.swift */; };
+		50E0F26721A5045500550BC8 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E0F26521A5045500550BC8 /* Note+CoreDataClass.swift */; };
+		50E0F26821A5045500550BC8 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E0F26621A5045500550BC8 /* Note+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		50A0F2C821375876007AAE5F /* privateNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = privateNotes.xcdatamodel; sourceTree = "<group>"; };
 		50C45716213B82240043C9DD /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		50C45718213B82D80043C9DD /* NoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewCell.swift; sourceTree = "<group>"; };
+		50E0F26521A5045500550BC8 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		50E0F26621A5045500550BC8 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 		500133C1215DCA66006C12D5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				50E0F26521A5045500550BC8 /* Note+CoreDataClass.swift */,
+				50E0F26621A5045500550BC8 /* Note+CoreDataProperties.swift */,
 				500133C2215DCA82006C12D5 /* KeyUtils.swift */,
 			);
 			path = Utils;
@@ -189,12 +195,14 @@
 				502032BE21558CCD003957D4 /* PassCodeViewController.swift in Sources */,
 				5015359E2090F750008C2DA0 /* FolderViewCell.swift in Sources */,
 				500133C3215DCA82006C12D5 /* KeyUtils.swift in Sources */,
+				50E0F26821A5045500550BC8 /* Note+CoreDataProperties.swift in Sources */,
 				50C45719213B82D80043C9DD /* NoteViewCell.swift in Sources */,
 				50C45717213B82240043C9DD /* NotesTableViewController.swift in Sources */,
 				50A0F2C921375876007AAE5F /* privateNotes.xcdatamodeld in Sources */,
 				500133BC215D9DFA006C12D5 /* SettingsViewCell.swift in Sources */,
 				5015359C2090EA54008C2DA0 /* FoldersTableViewController.swift in Sources */,
 				502CB2DD209228FB00755EE0 /* NoteDetailsViewController.swift in Sources */,
+				50E0F26721A5045500550BC8 /* Note+CoreDataClass.swift in Sources */,
 				50153587208F7E0C008C2DA0 /* AppDelegate.swift in Sources */,
 				500133B8215D9C86006C12D5 /* SettingsTableViewController.swift in Sources */,
 			);
