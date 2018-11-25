@@ -12,6 +12,7 @@ import CoreData
 class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var noteContent: UITextView!
+    
     var managedObjectContext: NSManagedObjectContext? = nil
     var fetchedResultsController: NSFetchedResultsController<Note>? = nil
     var selectedFolder:Folder? = nil
@@ -31,24 +32,32 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         }
         
         if(self.action == "addNote" && self.selectedFolder != nil) {
-            noteContent.becomeFirstResponder()
-            
             let attributedText = NSAttributedString(string: "")
             self.noteContent.attributedText = attributedText
-        }else {
+        } else {
             let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
             let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
             
             self.navigationItem.setRightBarButtonItems([shareButton,deleteButton], animated: true)
-            noteContent.resignFirstResponder()
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.registerKeyBoardNotifications()
+        if(self.action == "addNote" && self.selectedFolder != nil) {
+            noteContent.becomeFirstResponder()
+        } else {
+            noteContent.resignFirstResponder()
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.doneEditing()
+        self.deregisterKeyBoardNotifications()
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,6 +152,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     }
     
     @objc func doneEditing() {
+        noteContent.resignFirstResponder()
         if let content = noteContent {
             if(content.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
                 return
@@ -163,7 +173,6 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                     self.updateNote(content: content.attributedText)
                 }
             }
-            noteContent.resignFirstResponder()
         }
     }
     
@@ -242,5 +251,35 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     
     @objc func willResignActive() {
         self.doneEditing()
+    }
+    
+    func registerKeyBoardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func deregisterKeyBoardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWasShown(notification: NSNotification) {
+        var info = notification.userInfo!
+        
+        let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
+        
+        var aRect: CGRect = self.noteContent.frame
+        aRect.size.height -= keyboardHeight!
+        self.noteContent.frame = aRect
+    }
+    
+    @objc func keyboardWillBeHidden(notification: NSNotification) {
+        var info = notification.userInfo!
+        
+        let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
+        
+        var aRect: CGRect = self.noteContent.frame
+        aRect.size.height += keyboardHeight!
+        self.noteContent.frame = aRect
     }
 }
