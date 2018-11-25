@@ -18,13 +18,16 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     var selectedFolder:Folder? = nil
     var action = ""
     var currentNote: Note? = nil
+    var originalAttributes: [NSAttributedStringKey: Any] = [:]
+    var isAddingImage = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.originalAttributes = self.noteContent.attributedText.attributes(at: 0, effectiveRange: nil)
         
         if let note = currentNote {
             if note.binaryContent == nil {
-                let attributedText = NSAttributedString(string: note.content!)
+                let attributedText = NSAttributedString(string: note.content!, attributes: self.originalAttributes )
                 self.noteContent.attributedText = attributedText
             } else {
                 self.noteContent.attributedText = note.binaryContent
@@ -32,7 +35,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         }
         
         if(self.action == "addNote" && self.selectedFolder != nil) {
-            let attributedText = NSAttributedString(string: "")
+            let attributedText = NSAttributedString(string: "", attributes: self.originalAttributes )
             self.noteContent.attributedText = attributedText
         } else {
             let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(confirmDeleteNote))
@@ -47,8 +50,9 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.registerKeyBoardNotifications()
-        if(self.action == "addNote" && self.selectedFolder != nil) {
+        if( (self.action == "addNote" && self.selectedFolder != nil ) || self.isAddingImage) {
             noteContent.becomeFirstResponder()
+            self.isAddingImage = false
         } else {
             noteContent.resignFirstResponder()
         }
@@ -177,8 +181,43 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
     }
     
     @objc func addImage() {
+        var sourceType: UIImagePickerControllerSourceType = .camera
+        let selectInput = UIAlertController(title: "Select image", message: "From one of the options", preferredStyle: .actionSheet)
+        
+        self.isAddingImage = true
+        self.noteContent.resignFirstResponder()
+        
+        let cameraAction:UIAlertAction = UIAlertAction(title: "Camera", style: .default) { (action: UIAlertAction) in
+            OperationQueue.main.addOperation {
+                sourceType = .camera
+                self.selectImage(sourceType: sourceType)
+            }
+        }
+        
+        let photoLibraryAction:UIAlertAction = UIAlertAction(title: "Photo Library", style: .default) { (action: UIAlertAction) in
+            OperationQueue.main.addOperation {
+                sourceType = .photoLibrary
+                self.selectImage(sourceType: sourceType)
+            }
+        }
+        
+        let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { (action: UIAlertAction) in
+            OperationQueue.main.addOperation {
+                self.isAddingImage = false
+                self.noteContent.becomeFirstResponder()
+            }
+        }
+        
+        selectInput.addAction(cameraAction)
+        selectInput.addAction(photoLibraryAction)
+        selectInput.addAction(cancelAction)
+        
+        self.present(selectInput, animated: true)
+    }
+    
+    func selectImage(sourceType: UIImagePickerControllerSourceType){
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
+        imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = false
         imagePicker.delegate = self
         
@@ -195,17 +234,14 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
             let textAttachment = NSTextAttachment()
             textAttachment.image = finalImage
             
-            //Get Original attributes
-            let originalAttributes = self.noteContent.attributedText.attributes(at: 0, effectiveRange: nil)
-            
             //Copy existing info
             let attributedText = NSMutableAttributedString(attributedString: self.noteContent.attributedText)
             
             //Prepare attachemnts
             let attributedImage = NSAttributedString(attachment: textAttachment)
-            attributedText.append(NSAttributedString(string: "\n\n", attributes: originalAttributes))
+            attributedText.append(NSAttributedString(string: "\n\n", attributes: self.originalAttributes))
             attributedText.append(attributedImage)
-            attributedText.append(NSAttributedString(string: "\n\n", attributes: originalAttributes))
+            attributedText.append(NSAttributedString(string: "\n\n", attributes: self.originalAttributes))
             
             self.noteContent.attributedText = attributedText
         }
