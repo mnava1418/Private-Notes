@@ -98,8 +98,16 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as! Note
         note.folder = self.selectedFolder
         note.binaryContent = content
-        note.content = content.string
         note.date = Date()
+        
+        if content.string.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            dateFormatter.locale = .current
+            note.content = dateFormatter.string(from: note.date!)
+        } else {
+            note.content = content.string.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
         
         do {
             try context.save()
@@ -113,8 +121,16 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
         
         if let note = self.currentNote {
             note.binaryContent = content
-            note.content = content.string
             note.date = Date()
+            
+            if content.string.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                dateFormatter.locale = .current
+                note.content = dateFormatter.string(from: note.date!)
+            } else {
+                note.content = content.string.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
             
             do {
                 try context.save()
@@ -279,7 +295,7 @@ class NoteDetailsViewController: UIViewController, NSFetchedResultsControllerDel
                 return
             }
             
-            let contentToShare:[NSAttributedString] = [currentText]
+            let contentToShare:[String] = [currentText.string]
             let shareVC = UIActivityViewController(activityItems: contentToShare, applicationActivities: nil)
             self.present(shareVC, animated: true)
         }
